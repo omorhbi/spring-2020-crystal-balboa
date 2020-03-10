@@ -1,4 +1,13 @@
 # Standup
+### 3/9/2020
+- Reflected on prototype and decided on what new screens ought to be added for the app to be more cohesive and fluid
+- Discussed current familiarity regarding react 
+- No blockers.
+
+### 3/6/2020
+- Discussed future user stories and how and when we will all learn react
+- Also discussed the general timeline for work over the course of the sprint
+- No blockers.
 
 ### 3/4/2020
 - Prototype had been completed, stakeholder demo was held on 3/4. 
