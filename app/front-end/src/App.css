@@ -6,7 +6,6 @@
   font-family: system-ui;
   min-width: 100vh;
   min-height: 100vh;
-  padding-bottom: 30px;
 }
 
 h1{
@@ -16,6 +15,8 @@ h1{
 
 #welcome-logo {
   margin-top: 40px;
+  height: auto;
+  width: 40%;
 }
 
 #welcome-login {
