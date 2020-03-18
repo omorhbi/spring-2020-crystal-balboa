@@ -5,13 +5,7 @@ import mobileBg from './images/mobileWelcome.png';
 import logo from './images/supperwhere1.png';
 
 const App = () => {
-	let image;
-	if(window.innerWidth >= 650){
-		image = desktopBg;
-	}
-	else{
-		image = mobileBg;
-	}
+	const image = desktopBg;
 	return (
 		<div className="welcome" style={{backgroundImage: `url(${image})` }}>
 			<img src={logo} id="welcome-logo"/>

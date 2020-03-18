@@ -45,10 +45,3 @@ h1{
   margin-right: 200px;
   margin-left: 200px;
 }
-
-@media (min-width: 650px ) {
-    .welcome {
-        background-position: center center;
-        text-align: center;
-    }
-}
