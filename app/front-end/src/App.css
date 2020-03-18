@@ -1,11 +1,12 @@
 .welcome {
-  height: 100vh;
-  background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
   text-align: center;
   color: white;
   font-family: system-ui;
+  min-width: 100vh;
+  min-height: 100vh;
+  padding-bottom: 30px;
 }
 
 h1{
