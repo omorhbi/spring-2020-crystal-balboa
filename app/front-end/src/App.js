@@ -1,21 +1,19 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
-import desktopBg from './images/deskWelcome2.png';
-import mobileBg from './images/mobileWelcome.png';
-import logo from './images/supperwhere1.png';
+import Welcome from './welcome';
 
 const App = () => {
-	const image = desktopBg;
-	return (
-		<div className="welcome" style={{backgroundImage: `url(${image})` }}>
-			<img src={logo} id="welcome-logo"/>
-			<div id="welcome-login"><button type="button" id="login-button">Login/Register</button></div>
-			<div className="welcome-text">
-				<h1>"What should I eat for dinner?"</h1>
-				<p>Supperwhere is an application to help you figure out dining recommendations based on your dietary preferences and meal history. 
-				Supperwhere aims to make the dining experience more convenient for you by providing quick and easy options that are tailored to your preferences.
-				</p>
-			</div>
+	//Add components in switch
+	return(
+		<div className="App">
+			<Router>
+				<Switch>
+					<Route path="/">
+						<Welcome />
+					</Route>
+				</Switch>
+			</Router>
 		</div>
 	);
 };
