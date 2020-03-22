@@ -10,7 +10,7 @@ const Welcome = () => {
 			<img src={logo} id="welcome-logo"/>
 			<div id="welcome-login"><button type="button" id="login-button">Login/Register</button></div>
 			<div className="welcome-text">
-				<h1>"What should I eat for dinner?"</h1>
+				<h1 id="about">"What should I eat for dinner?"</h1>
 				<p>Supperwhere is an application to help you figure out dining recommendations based on your dietary preferences and meal history. 
 				Supperwhere aims to make the dining experience more convenient for you by providing quick and easy options that are tailored to your preferences.
 				</p>
