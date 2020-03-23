@@ -1,0 +1,104 @@
+body {
+	background-color: #e6e6e6;
+	background-size: auto;
+}
+
+
+.searchShow{
+	width: 100%;
+	height: 100%;
+}
+
+.searchShowTop{
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+#searchShowAbout{
+	font-family: system-ui;
+	font-weight: lighter;
+	margin-top: 0;
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+
+#prefAbtSearchBar{
+	border: solid;
+	border-width: thin;
+	border-color: #b00b0b;
+	border-radius: 5px;
+	position: relative;
+	height: 36px;
+	width: 15%;
+	outline: none;
+	margin-right: 7px;
+	font-family: system-ui;
+}
+
+#restAbtSearchBar{
+	border: solid;
+	border-width: thin;
+	border-color: #b00b0b;
+	border-radius: 5px;
+	position: relative;
+	height: 36px;
+	width: 30%;
+	outline: none;
+	margin-right: 7px;
+	font-family: system-ui;
+}
+
+#prefAbtSearchBTN{
+	background: #b00b0b;
+	border: none;
+	border-radius: 5px;
+	position: relative;
+	width: 85px;
+	height: 40px;
+	color: white;
+	font-weight: normal;
+	outline: none;
+	font-family: system-ui;
+}
+
+#prefAbtSearchBTN:active {
+  background: #4a0101;
+  color: white;
+}
+
+.prefRestList{
+	width: 60%;
+	margin: 0 auto;
+	font-family: system-ui;
+}
+
+.prefRestCard{
+	background-color: white;
+	position: relative;
+	border-radius: 5px;
+	border: solid;
+	border-width: thin;
+	width: 100%;
+	padding: 3px;
+	margin-top: 30px;
+}
+
+.topRightDir{
+	position: absolute; 
+	top: 0; 
+	right: 0;
+	padding: 3px;
+	text-decoration: none;
+}
+
+.restNameList{
+	color: #b00b0b;
+	font-weight: bold;
+}
+
+.prefRestCardImg{
+	float: left;
+	width: auto;
+	height: 65px;
+	margin-right: 5px;
+}

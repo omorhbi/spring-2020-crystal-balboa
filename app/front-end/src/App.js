@@ -2,8 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
 import Welcome from './welcome';
-import Location from './Location';
+import Location from './location';
 import LocationShow from './LocationShow';
+import SearchShow from './searchShow';
+import SearchPreferences from './searchPreferences';
 
 const App = () => {
 	//Add components in switch
@@ -19,6 +21,12 @@ const App = () => {
 					</Route>
 					<Route exact path="/location/show">
 						<LocationShow />
+					</Route>
+					<Route exact path = "/searchPreferences">
+						<SearchPreferences />
+					</Route>
+					<Route exact path = "/searchPreferences/show">
+						<SearchShow />
 					</Route>
 				</Switch>
 			</Router>
