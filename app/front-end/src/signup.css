@@ -6,6 +6,12 @@
 p{
     font-size: 10px;
 }
+#button{
+  text-align: center;
+}
+#coolio{
+  font-weight: lighter;
+}
 #signup{
     font-family: "system-ui";
     background-repeat: no-repeat;

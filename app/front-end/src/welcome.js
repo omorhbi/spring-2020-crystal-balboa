@@ -2,13 +2,14 @@ import React from 'react';
 import './welcome.css';
 import desktopBg from './images/deskWelcome2.png';
 import logo from './images/supperwhere1.png';
+import { Link } from 'react-router-dom';
 
 const Welcome = () => {
 	const image = desktopBg;
 	return (
 		<div className="welcome" style={{backgroundImage: `url(${image})` }}>
 			<img src={logo} id="welcome-logo"/>
-			<div id="welcome-login"><button type="button" id="login-button">Login/Register</button></div>
+			<div id="welcome-login"><Link to="/login"><button type="button" id="login-button">Login/Register</button></Link></div>
 			<div className="welcome-text">
 				<h1 id="about">"What should I eat for dinner?"</h1>
 				<p>Supperwhere is an application to help you figure out dining recommendations based on your dietary preferences and meal history. 

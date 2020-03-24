@@ -1,12 +1,12 @@
 #login_component{
-    float: left;
+
     display: block;
-    margin-right: 500px;
-    margin-left: 50px;
+
     color: white;
 }
 #signup_component{
-    float: left;
+
+    display: block;
     color: white;
 }
 #login_page{
@@ -36,7 +36,7 @@
     outline: none;
     font-family: system-ui;
   }
-  
+
   #login-button:active {
     background: #4a0101;
     color: white;
@@ -52,4 +52,15 @@ p{
 }
 form{
     color: #DDA0DD;
+    text-align: center;
+}
+.header_login{
+    text-align: center;
+    font-weight: lighter;
+}
+.p_login{
+    text-align: center;
+}
+#buttons{
+    text-align: center;
 }

@@ -5,7 +5,7 @@ document.body.id = "signup";
 const Signup = () => {
     return(
         <div id="parent_1">
-            <h1>Embark on your food journey.</h1>
+            <h1 id="coolio">Embark on your food journey.</h1>
             <form>
             <label>First Name: </label>
             <input type="text" name="firstname"></input>
@@ -21,7 +21,9 @@ const Signup = () => {
             <p>(You can always change this, so don't worry.)</p>
             </form>
             <br></br>
+            <div id="button">
             <a href="/profile" class="anchor"><button id="login-button">Submit (mimics successful signup)</button></a>
+            </div>
             <br></br>
             <br></br>
 
