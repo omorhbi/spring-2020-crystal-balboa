@@ -1,0 +1,28 @@
+#searchOutput{
+	list-style-type: none;
+}
+
+body {
+	text-align: center;
+}
+
+.Search{
+	font-family: system-ui;
+}
+
+.input{
+	width: 15%;
+	border: 2px solid #FF0000;
+	border-radius: 5px;
+	padding: 15px;
+
+}
+
+input[type=text]:focus{
+	width: 30%;
+}
+
+input[type=text]{
+	-webkit-transition: width 0.15s ease-in-out;
+	transition: width 0.15s ease-in-out;
+}
