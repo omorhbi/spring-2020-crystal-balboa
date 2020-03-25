@@ -8,6 +8,8 @@ import Login_and_Signup from './login_and_signup';
 import Signup from './signup';
 import Meal_History from './meal_history';
 import Mistake from './mistake';
+import SearchShow from './searchShow';
+import SearchPreferences from './searchPreferences';
 
 const App = () => {
 	//Add components in switch
@@ -35,6 +37,11 @@ const App = () => {
 					</Route>
 					<Route exact path="/mistake">
 						<Mistake />
+					<Route exact path = "/searchPreferences">
+						<SearchPreferences />
+					</Route>
+					<Route exact path = "/searchPreferences/show">
+						<SearchShow />
 					</Route>
 				</Switch>
 
