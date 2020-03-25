@@ -37,6 +37,7 @@ const App = () => {
 					</Route>
 					<Route exact path="/mistake">
 						<Mistake />
+					</Route>
 					<Route exact path = "/searchPreferences">
 						<SearchPreferences />
 					</Route>

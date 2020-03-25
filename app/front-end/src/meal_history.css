@@ -1,3 +1,17 @@
 #profile_picture{
     float: left;
+    margin-left: 50px;
+}
+h1{
+    text-align: center;
+    margin-right: 200px;
+}
+p{
+    text-align: center;
+    margin-right: 200px;
+}
+table, th, td{
+    border: 1px solid black;
+    margin: 0 auto;
+    font-size: 30px;
 }
