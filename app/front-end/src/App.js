@@ -10,7 +10,8 @@ import Meal_History from './meal_history';
 import Mistake from './mistake';
 import SearchShow from './searchShow';
 import SearchPreferences from './searchPreferences';
-
+import Edit_History from './edit_history';
+import Delete_History from './delete_history'
 const App = () => {
 	//Add components in switch
 	return(
@@ -34,6 +35,12 @@ const App = () => {
 					</Route>
 					<Route exact path="/meal_history">
 						<Meal_History />
+					</Route>
+					<Route exact path="/meal_history/edit">
+						<Edit_History/>
+					</Route>
+					<Route exact path="/meal_history/delete">
+						<Delete_History />
 					</Route>
 					<Route exact path="/mistake">
 						<Mistake />

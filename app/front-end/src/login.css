@@ -1,7 +1,5 @@
 #login_component{
-
     display: block;
-
     color: white;
 }
 #signup_component{
@@ -41,26 +39,23 @@
     background: #4a0101;
     color: white;
   }
-html{
-    background-color: #e6e6e6;
-}
-h1{
-    color: #DDA0DD;
-}
-p{
-    color: #DDA0DD;
-}
-form{
+#this_form{
     color: #DDA0DD;
     text-align: center;
 }
 .header_login{
+    color: #DDA0DD;
     text-align: center;
     font-weight: lighter;
 }
 .p_login{
     text-align: center;
+    color: #DDA0DD;
 }
 #buttons{
     text-align: center;
+}
+#parent{
+    background-color: #e6e6e6;
+   
 }
