@@ -59,8 +59,10 @@ const LocationShow = (props) => {
 						<a href={`https://www.google.com/maps/dir/?api=1&destination=${item.address}, ${item.city}, ${item.state} ${item.zip_code}`} target="_blank" className="topRightDir">Directions</a>
 						<img src={`https://picsum.photos/200?id=${item.restaurant_name}`} className="locRestCardImg"/>
 						<div className="restNameList">{item.restaurant_name}</div>
+                        <div className="cuisineName">{item.cuisine} Cuisine</div>
 						{item.address}<br />
 						{item.city}, {item.state}, {item.zip_code}<br />
+                        <Link to = "/meal_history"><a>Add to Meal History</a></Link>
 					</div>
 				))}
 			</div>

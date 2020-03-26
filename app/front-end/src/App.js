@@ -14,6 +14,10 @@ import Edit_History from './edit_history';
 import Delete_History from './delete_history'
 import SearchShow from './searchShow';
 import Nav from './Nav';
+import Edit_History from './edit_history';
+import Delete_History from './delete_history'
+import SearchShow from './searchShow';
+import Profile from './profile';
 
 const App = () => {
 	//Add components in switch
@@ -54,7 +58,7 @@ const App = () => {
 					</Route>
 					<Route exact path="/mistake">
 						<Mistake />
-          			</Route>
+          </Route>
 					<Route exact path = "/searchPreferences">
 						<Nav />
 						<SearchPreferences />
@@ -66,6 +70,10 @@ const App = () => {
 					<Route exact path = "/searchPreferences">
 						<Nav />
 						<SearchPreferences />
+					</Route>
+					<Route exact path = "/profile">
+              <Nav />
+              <Profile />
 					</Route>
 				</Switch>
 

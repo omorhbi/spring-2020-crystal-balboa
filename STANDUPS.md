@@ -1,4 +1,40 @@
 # Standup
+### 3/25/2020
+- All pages are at least complete with HTML and CSS, all that is left is putting them together and making sure they form a cohesive prototype
+- Some issues with linking between pages was identified, but everyone agreed to work at night to fix it together
+- No blockers. 
+
+### 3/23/2020
+- Most pages are already done and functioning, all that is left is the remaining few pages and bugtesting the existing ones
+- Everyone agreed to keep in touch and relay questions over Skype calls as we were doing this, as it is important that we all make our pages flow seamlessly into one another 
+- No blockers.
+
+### 3/20/2020
+- Basic HTML exists and functions for most pages between the group members
+- CSS and the implementation of other pages is whats left, but does not seem to be very difficult
+- No blockers.
+
+### 3/18/2020
+- More progress has been made on the pages, but some issues are had with transitioning to mobile design
+- Discussed potential fixes some have had and intended on implemeting them
+- No blockers.
+
+### 3/16/2020
+- COVID-19 adjustments have delayed the page expectations slightly, but everyone had made decent progress and would be able to put in work throughout the week
+- Discussed using components for efficiency in the near future.
+- No blockers.
+
+### 3/13/2020
+- Discussed current familiarity with React, with everyone stating that they seemed to understand it well enough to start designing their pages conceptually
+- The only potential complications seemed to be API integration, but those assigned API pages had reviewed integrating maps and mockaroo
+- No blockers.
+
+### 3/11/2020
+- Due to COVID-19 social distancing practices, we've decided to host standups on Slack and Skype. 
+- Discussed what learning React would entail and how difficult it seemed it would be going forward
+- Posited on potential website completion dates
+- No blockers.
+
 ### 3/9/2020
 - Reflected on prototype and decided on what new screens ought to be added for the app to be more cohesive and fluid
 - Discussed current familiarity regarding react 
