@@ -1,34 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import './meal_history.css';
 import { Link } from 'react-router-dom';
 
-class Meal_History extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            restautants:[
-                {Date: '3/11/2020', Name: "Farooks Halal Cart", Address: "140 East 14th Street"},
-                {Date: '2/16/2019', Name: "Homemade Dumpling", Address: "27 Essex St A"}
-            ]
+const Meal_History = (props) =>{
+    const sampleRestaurants = [
+        {   id: 1,
+            date: '3/20/20',
+            name: 'Farooks Halal Cart',
+            address: '140 East 14th Street'
+        },
+        {   id: 2,
+            date: '2/16/19',
+            name: 'Homemade Dumpling',
+            address: '27 Essex St A'
         }
-    };
-
-    renderRestaurantTable(){
-        return this.state.restautants.map((restaurant, index)=>{
-            const{Date, Name, Address} = restaurant
-            return(
-                
-                <tr key={Date}>
-                    <td scope="row">{Date}</td>
-                    <td>{Name}</td>
-                    <td>{Address}</td>
-                    <td><a href="meal_history/delete"><button className="option_button">Delete        </button></a></td>
-                </tr>
-            )
-        })
-    }
-
-    render(){
+    ];
         return(
             <div id="parent">
             <h1 className="meal_h">Meal History</h1>
@@ -49,24 +35,20 @@ class Meal_History extends Component{
 
 
 
-            <table id="history_table">
-                <thead>
-                <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Delete Entry</th>
-                    </tr>
-                </thead>
-                <tbody>
+			<div className="rest_history">
+				{sampleRestaurants.map(item => (
+					<div className="rest_card" key={item.id}>
+                        <div className="dateTR">{item.date}</div>
+						<div className="restNameList">{item.name}</div>
+						{item.address}<br />
+                        <Link to = "/meal_history/delete"><a>Delete Entry</a></Link>
+					</div>
+				))}
+			</div>
+		</div>
 
-                {this.renderRestaurantTable()}
-                </tbody>
-            </table>
 
-            </div>
     )
-    }
     }
    
 

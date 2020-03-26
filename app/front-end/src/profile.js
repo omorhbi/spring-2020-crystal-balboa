@@ -23,7 +23,8 @@ const Profile = (props) => {
                 preferences.includes(restaurant.cuisine));
             setRestaurants(filter);
             // props.culinaryPreferences and props.priceRange would serve as the variables
-            // to compare here for filtering.
+			// to compare here for filtering.
+			// for profile page, the page will only show 4 restaurants for that day
         })
         .catch(err => {
             console.log("No more requests allowed today.")
@@ -93,7 +94,7 @@ const Profile = (props) => {
 	    			</div>
 	    		
 	    			
-	   				<Link to="/location/show"><button type="submit" id="prefSearchBTN">Change Preferences</button></Link>    		
+	   				<Link to="/preferences"><button type="submit" id="prefSearchBTN">Change Preferences</button></Link>    		
 	    			
 	    		
 	    		</div>

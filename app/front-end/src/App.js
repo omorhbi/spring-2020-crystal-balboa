@@ -10,12 +10,11 @@ import Signup from './signup';
 import Meal_History from './meal_history';
 import Mistake from './mistake';
 import SearchPreferences from './searchPreferences';
+import Edit_History from './edit_history';
 import SearchShow from './searchShow';
 import Nav from './Nav';
-import Edit_History from './edit_history';
-import Delete_History from './delete_history'
-import SearchShow from './searchShow';
 import Profile from './profile';
+import Delete_History from './delete_history';
 
 const App = () => {
 	//Add components in switch
@@ -64,10 +63,6 @@ const App = () => {
 					<Route exact path = "/searchPreferences/show">
 						<Nav />
 						<SearchShow />
-					</Route>
-					<Route exact path = "/searchPreferences">
-						<Nav />
-						<SearchPreferences />
 					</Route>
 					<Route exact path = "/profile">
               <Nav />

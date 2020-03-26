@@ -1,11 +1,14 @@
 
 .meal_h{
     text-align: center;
+    font-family: system-ui;
+    font-weight: normal;
 }
 .meal_p{
     text-align: center;
-
+  
 }
+
 #meal_table{
   text-align: center;
   
@@ -48,7 +51,35 @@ table, th, td{
     background: #4a0101;
     color: white;
   }
+.rest_history{
+    width: 60%;
+    margin: 0 auto;
+    font-family: system-ui;
+  }
+  .rest_card{
+    background-color: white;
+    position: relative;
+    border-radius: 5px;
+    border: solid;
+    border-width: thin;
+    width: 100%;
+    padding: 3px;
+    margin-top: 30px;
+  }
+  .dateTR{
+    position: absolute; 
+    top: 0; 
+    right: 0;
+    padding: 3px;
+    text-decoration: none;
+  }
+  
 @media screen and (max-width: 600px) {
+  .rest_history{
+		width: 95%;
+		margin: 0 auto;
+		font-family: system-ui;
+	}
     table {
       border: 0;
     }
@@ -89,5 +120,12 @@ table, th, td{
     
     table td:last-child {
       border-bottom: 0;
+    }
+    .dateTR{
+      position: absolute; 
+      top: 0; 
+      right: 0;
+      padding: 3px;
+      text-decoration: none;
     }
   }
