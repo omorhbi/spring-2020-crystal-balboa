@@ -8,9 +8,9 @@ const SearchPreferences = () => {
 		<div className="search">
 			<h1 id="searchAbout">Discover the best restaurants based on your preferences.</h1>
 			<div className="searchBar">
-				<input type="text" id="prefSearchBar" name="prefSearch" placeholder="Enter a location"/>
-				<input type="text" id="restSearchBar" name="restSearch" placeholder="Search for restaurants"/>
-				<Link to="/SearchPreferences/show"><button type="submit" id="prefSearchBTN">Search</button></Link>
+				<input type="text" id="prefSearchBar" name="prefLocSearch" placeholder="Enter a location"/>
+				<input type="text" id="prefRestSearchBar" name="prefRestSearch" placeholder="Search for restaurants"/>
+				<Link to="/SearchPreferences/show"><button type="submit" id="prefEntBTN">Search</button></Link>
 			</div>
 		</div>
 	);

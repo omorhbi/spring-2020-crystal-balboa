@@ -8,7 +8,7 @@ const preferences = () => {
     return (
         <div className = "preferencesPage">
             <form action="/profile">
-                <h2 className="prefTitle">Preferences</h2>
+                <h3 className="prefTitle">Preferences</h3>
                 <div className="priceRange">
                     <input type="checkbox" id="p1" value={1} className = "prices"/>
                     <label for="p1" id = "oneDollar" className = "priceLabel">$</label>
@@ -19,7 +19,7 @@ const preferences = () => {
                     <input type="checkbox" id="p4" value={4} className = "prices"/>
                     <label for="p4" id = "fourDollar" className = "priceLabel">$$$$</label>
                 </div>
-                <h3 className = "prefTitle">Culinary Preferences</h3>
+                <h5 className = "prefTitle">Culinary Preferences</h5>
                 <div className="culinary">
                     <input type="checkbox" id="c1" value="American"/>
                     <label for="c1">American</label><br/>

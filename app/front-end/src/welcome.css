@@ -4,8 +4,8 @@
   text-align: center;
   color: white;
   font-family: system-ui;
-  min-width: 100vh;
-  min-height: 100vh;
+  background-size: cover;
+  height: 100vh;
 }
 
 #about{
@@ -43,7 +43,7 @@
 }
 
 .welcome-text{
-  margin-right: 200px;
-  margin-left: 200px;
+  margin-right: 10%;
+  margin-left: 10%;
   font-weight: lighter;
 }
