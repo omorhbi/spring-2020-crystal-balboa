@@ -8,7 +8,9 @@ const SearchShow = (props) => { // props will come from the state variables in p
 	const [restaurants, setRestaurants] = useState([]);
     // hard coded preferences but will act differently once preferences are saved
     // to a database
-    const [preferences, setPreferences] = useState([]);
+    const [preferences, setPreferences] = useState(["Middle Eastern",
+                                                    "Tex-Mex",
+                                                    "Asian"]);
 
 	useEffect(() => {
        console.log('fetching restaurants...');
@@ -69,8 +71,10 @@ const SearchShow = (props) => { // props will come from the state variables in p
 						<a href={`https://www.google.com/maps/dir/?api=1&destination=${item.address}, ${item.city}, ${item.state} ${item.zip_code}`} target="_blank" className="topRightDir">Directions</a>
 						<img src={`https://picsum.photos/200?id=${item.restaurant_name}`} className="prefRestCardImg"/>
 						<div className="restNameList">{item.restaurant_name}</div>
+                        <div className = "cuisineName">{item.cuisine} Cuisine</div>
 						{item.address}<br />
 						{item.city}, {item.state}, {item.zip_code}<br />
+                        <Link to = "/meal_history"><a>Add to Meal History</a></Link>
 					</div>
 				))}
 			</div>

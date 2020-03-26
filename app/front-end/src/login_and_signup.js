@@ -6,7 +6,7 @@ document.body.id = 'login_page';
 
 const Login_and_Signup = () => {
     return(
-        <div id="parent">
+        <div id="parent_2">
         <div id= "login_component">
             <h1 className="header_login">Have an account?</h1>
             <p className="p_login">Log in and get access to the best restaurants for YOUR needs.</p>

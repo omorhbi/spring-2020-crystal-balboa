@@ -40,22 +40,22 @@
     color: white;
   }
 #this_form{
-    color: #DDA0DD;
+    color: black;
     text-align: center;
 }
 .header_login{
-    color: #DDA0DD;
+    color: black;
     text-align: center;
     font-weight: lighter;
 }
 .p_login{
     text-align: center;
-    color: #DDA0DD;
+    color: black;
 }
 #buttons{
     text-align: center;
 }
-#parent{
+#parent_2{
     background-color: #e6e6e6;
    
 }

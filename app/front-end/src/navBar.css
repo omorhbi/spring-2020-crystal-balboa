@@ -1,0 +1,79 @@
+.nav-Links{
+	overflow: hidden;
+	background-color: #b00b0b;
+}
+
+.navLink{
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navImg{
+	float: left;
+	display: block;
+	text-align: center;
+	padding: 22px 8px;
+	height: 10px;
+	width: auto;
+}
+
+/* Add an active class to highlight the current page */
+.navLink:active {
+  background-color: #4a0101;
+  color: white;
+}
+
+.dropbtn{
+	display: none;
+}
+
+@media only screen and (max-width: 585px){
+	.nav-Links{
+		overflow: hidden;
+		background-color: #b00b0b;
+	}
+	.dropbtn{
+		display: inline;
+	}
+	.dropdown{
+		float: left;
+		overflow: hidden;
+	}
+	.dropdown .dropbtn{
+		  font-size: 16px;
+		  border: none;
+		  outline: none;
+		  color: white;
+		  padding: 14px 16px;
+		  background-color: inherit;
+		  font-family: inherit; 
+		  margin: 0; 
+	}
+
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #b00b0b;
+		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		z-index: 1;
+	}
+
+	.dropdown:hover .dropdown-content {
+		display: block;
+	}
+
+	.navLink{
+		float: none;
+		display: block;
+		color: #f2f2f2;
+		text-align: left;
+		padding: 14px 16px;
+		text-decoration: none;
+		font-size: 17px;
+	}
+}

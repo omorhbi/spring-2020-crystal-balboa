@@ -1,0 +1,199 @@
+body {
+	background-color: #e6e6e6;
+	background-size: auto;
+}
+
+
+.profile{
+	width: 100%;
+	height: 100%;
+}
+
+.prefListOut{
+	text-align: center;
+}
+
+.profileTop{
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+#welcomeMessage{
+	font-family: system-ui;
+	font-weight: normal;
+	margin-top: 0;
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+
+.recs {
+	font-family: system-ui;
+	font-weight: normal;
+}
+
+#prefSearchBTN{
+	background: #b00b0b;
+	border: none;
+	border-radius: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 95px;
+	height: 50px;
+	color: white;
+	font-weight: normal;
+	outline: none;
+	font-family: system-ui;
+}
+
+#prefSearchBTN:active {
+  background: #4a0101;
+  color: white;
+}
+
+.profileRestList{
+	width: 60%;
+	margin: 0 auto;
+	font-family: system-ui;
+}
+
+.profileRestCard{
+	background-color: white;
+	position: relative;
+	border-radius: 5px;
+	border: solid;
+	border-width: thin;
+	width: 100%;
+	padding: 3px;
+	margin-top: 30px;
+}
+
+.preferencesList{
+	background-color: white;
+	border-radius: 3px;
+	border: solid;
+	border-width: thin;
+	width: 35%;
+	text-align: center;
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+.prefCol{
+	float: left;
+	width: 50%;
+
+}
+
+.preferencesList:after{
+	content: "";
+	display: table;
+	clear: both;
+
+}
+
+@media only screen and (max-width: 585px){
+
+	.preferencesList{
+		background-color: white;
+		border-radius: 3px;
+		border: solid;
+		border-width: thin;
+		width: 90%;
+		text-align: center;
+	}
+	.prefCol{
+		float: left;
+		width: 50%;
+	}
+	.preferencesList:after{
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+	.profileRestList{
+		width: 95%;
+		margin: 0 auto;
+		font-family: system-ui;
+	}
+
+}
+
+@media only screen and (min-width: 586px) and (max-width: 1109px){
+	.preferencesList{
+		background-color: white;
+		border-radius: 3px;
+		border: solid;
+		border-width: thin;
+		width: 70%;
+		text-align: center;
+	}
+	.prefCol{
+		float: left;
+		width: 50%;
+	}
+	.preferencesList:after{
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+}
+
+#prefText {
+	color: #b00b0b;
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+#savedPreferences {
+	position: relative;
+	text-align: center;
+	font-family: system-ui;
+	font-weight: normal;
+}
+
+#priceText{
+	margin: 0;
+	position: relative;
+	top: 50%;
+}
+
+#price {
+	font-size: 1.2rem;
+	color: #b00b0b;
+	font-weight: bold;
+}
+
+#cuisineCard {
+	margin: 0;
+}
+
+.cuisineItem{
+	margin: 0;
+}
+
+.topRightDir{
+	position: absolute; 
+	top: 0; 
+	right: 0;
+	padding: 3px;
+	text-decoration: none;
+}
+
+.restNameList{
+	color: #b00b0b;
+	font-weight: bold;
+}
+
+.cuisineName {
+	font-style: italic;
+	font-weight: bold;
+}
+
+.profileRestCardImg{
+	float: left;
+	width: auto;
+	height: 106px;
+	margin-right: 5px;
+}

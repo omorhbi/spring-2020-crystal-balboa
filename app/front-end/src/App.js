@@ -9,12 +9,13 @@ import Login_and_Signup from './login_and_signup';
 import Signup from './signup';
 import Meal_History from './meal_history';
 import Mistake from './mistake';
-import SearchShow from './searchShow';
 import SearchPreferences from './searchPreferences';
+import SearchShow from './searchShow';
+import Nav from './Nav';
 import Edit_History from './edit_history';
 import Delete_History from './delete_history'
-
-
+import SearchShow from './searchShow';
+import Profile from './profile';
 
 const App = () => {
 	//Add components in switch
@@ -26,12 +27,15 @@ const App = () => {
 						<Welcome />
 					</Route>
 					<Route exact path="/preferences">
+						<Nav />
 						<Preferences />
-          </Route>
+          			</Route>
 					<Route exact path="/location">
+						<Nav />
 						<Location />
 					</Route>
 					<Route exact path="/location/show">
+						<Nav />
 						<LocationShow />
 					</Route>
 					<Route exact path="/login" >
@@ -41,6 +45,7 @@ const App = () => {
 						<Signup />
 					</Route>
 					<Route exact path="/meal_history">
+						<Nav />
 						<Meal_History />
 					</Route>
 					<Route exact path="/meal_history/edit">
@@ -53,16 +58,20 @@ const App = () => {
 						<Mistake />
           </Route>
 					<Route exact path = "/searchPreferences">
+						<Nav />
 						<SearchPreferences />
 					</Route>
 					<Route exact path = "/searchPreferences/show">
+						<Nav />
 						<SearchShow />
 					</Route>
 					<Route exact path = "/searchPreferences">
+						<Nav />
 						<SearchPreferences />
 					</Route>
-					<Route exact path = "/searchPreferences/show">
-						<SearchShow />
+					<Route exact path = "/profile">
+              <Nav />
+              <Profile />
 					</Route>
 				</Switch>
 

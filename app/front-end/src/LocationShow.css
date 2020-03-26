@@ -84,6 +84,40 @@ body {
 	margin-top: 30px;
 }
 
+@media only screen and (max-width: 585px){
+
+	.locRestList{
+		width: 95%;
+		margin: 0 auto;
+		font-family: system-ui;
+	}
+	.abtSearchBar{
+		text-align: center;
+	}
+	#locAbtSearchBar{
+		width: 60%;
+		margin: auto;
+		margin-bottom: 10px;
+		display: inline-block;
+	}
+
+	#restAbtSearchBar{
+		margin: auto;
+		height: 36px;
+		width: 60%;
+	}
+	#locAbtSearchBTN{
+		margin-left: 30%;
+		margin-right: 30%;
+		margin-top: 10px;
+	}
+
+	#locAbtSearchBTN:active {
+	  background: #4a0101;
+	  color: white;
+	}
+}
+
 .topRightDir{
 	position: absolute; 
 	top: 0; 
@@ -100,6 +134,6 @@ body {
 .locRestCardImg{
 	float: left;
 	width: auto;
-	height: 65px;
+	height: 106px;
 	margin-right: 5px;
 }
