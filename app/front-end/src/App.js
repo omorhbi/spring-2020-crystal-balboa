@@ -13,8 +13,7 @@ import SearchShow from './searchShow';
 import SearchPreferences from './searchPreferences';
 import Edit_History from './edit_history';
 import Delete_History from './delete_history'
-import SearchShow from './searchShow';
-import SearchPreferences from './searchPreferences';
+
 
 
 const App = () => {
