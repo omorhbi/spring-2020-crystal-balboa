@@ -2,9 +2,9 @@
 	background-image: url("./images/sushi.png");
 	background-repeat: no-repeat;
 	background-size: cover;
-	min-height: 100vh;
-	min-width: 100vh;
+	background-position: center;
 	text-align: center;
+	height: 100vh;
 }
 
 #locationAbout{
