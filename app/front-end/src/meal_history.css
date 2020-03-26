@@ -1,0 +1,93 @@
+
+.meal_h{
+    text-align: center;
+}
+.meal_p{
+    text-align: center;
+
+}
+#meal_table{
+  text-align: center;
+  
+}
+table, th, td{
+    border: 1px solid black;
+    margin: 0 auto;
+    font-size: 30px;
+    background-color: white;
+	position: relative;
+	border-radius: 5px;
+	border: solid;
+	border-width: thin;
+	padding: 3px;
+    margin-top: 30px;
+}
+#time_frames{
+	border: none;
+	border-radius: 5px;
+	position: relative;
+	height: 37px;
+	width: 15%;
+	outline: none;
+	margin-right: 7px;
+  font-family: system-ui;
+}
+.option_button{
+    background: #b00b0b;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    width: 150px;
+    height: 38px;
+    color: white;
+    font-weight: normal;
+    outline: none;
+    font-family: system-ui;
+}
+.option-button:active {
+    background: #4a0101;
+    color: white;
+  }
+@media screen and (max-width: 600px) {
+    table {
+      border: 0;
+    }
+  
+    table caption {
+      font-size: 1.3em;
+    }
+    
+    table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+    
+    table tr{
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+    }
+    
+    table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+    }
+    
+    table td::before {
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    
+    table td:last-child {
+      border-bottom: 0;
+    }
+  }

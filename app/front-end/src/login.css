@@ -1,0 +1,61 @@
+#login_component{
+    display: block;
+    color: white;
+}
+#signup_component{
+
+    display: block;
+    color: white;
+}
+#login_page{
+    font-family: "system-ui";
+    background-repeat: no-repeat;
+}
+.anchor{
+    background: #b00b0b;
+    border: none;
+    border-radius: 5px;
+    position: relative;   width: 150px;
+    height: 50px;
+    color: white;
+    font-weight: normal;
+    outline: none;
+    font-family: system-ui;
+}
+#login-button {
+    background: #b00b0b;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    width: 150px;
+    height: 50px;
+    color: white;
+    font-weight: normal;
+    outline: none;
+    font-family: system-ui;
+  }
+
+  #login-button:active {
+    background: #4a0101;
+    color: white;
+  }
+#this_form{
+    color: #DDA0DD;
+    text-align: center;
+}
+.header_login{
+    color: #DDA0DD;
+    text-align: center;
+    font-weight: lighter;
+}
+.p_login{
+    text-align: center;
+    color: #DDA0DD;
+}
+#buttons{
+    text-align: center;
+}
+#parent_2{
+    background-color: #e6e6e6;
+   
+}

@@ -1,0 +1,11 @@
+#mistake_parent{
+    display: table;
+    margin: 0 auto;
+    color: white;
+}
+#mistake_h{
+    text-align: center;
+}
+#mistake_p{
+    font-size: 30px;
+}
