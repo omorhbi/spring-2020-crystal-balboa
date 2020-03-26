@@ -7,23 +7,20 @@ import './preferences.css';
 const preferences = () => {
     return (
         <div className = "preferencesPage">
-            <div>
-                <h1 className="prefTitle">Preferences</h1>
-            </div>
             <form action="/profile">
+                <h2 className="prefTitle">Preferences</h2>
                 <div className="priceRange">
-                    <input type="checkbox" id="p1" value={1}/>
-                    <label for="p1">$</label>
-                    <input type="checkbox" id="p2" value={2}/>
-                    <label for="p2">$$</label>
-                    <input type="checkbox" id="p3" value={3}/>
-                    <label for="p3">$$$</label>
-                    <input type="checkbox" id="p4" value={4}/>
-                    <label for="p4">$$$$</label>
+                    <input type="checkbox" id="p1" value={1} className = "prices"/>
+                    <label for="p1" id = "oneDollar" className = "priceLabel">$</label>
+                    <input type="checkbox" id="p2" value={2} className = "prices"/>
+                    <label for="p2" id = "twoDollar" className = "priceLabel">$$</label>
+                    <input type="checkbox" id="p3" value={3} className = "prices"/>
+                    <label for="p3" id = "threeDollar" className = "priceLabel">$$$</label>
+                    <input type="checkbox" id="p4" value={4} className = "prices"/>
+                    <label for="p4" id = "fourDollar" className = "priceLabel">$$$$</label>
                 </div>
                 <h3 className = "prefTitle">Culinary Preferences</h3>
                 <div className="culinary">
-                    <br/>
                     <input type="checkbox" id="c1" value="American"/>
                     <label for="c1">American</label><br/>
                     <input type="checkbox" id="c2" value="Chinese"/>
@@ -39,12 +36,13 @@ const preferences = () => {
                     <input type="checkbox" id="c7" value="Korean"/>
                     <label for="c7">Korean</label><br/>
                     <input type="checkbox" id="c8" value="Mexican"/>
-                    <label for="c8">Mexican</label><br/><br/>
+                    <label for="c8">Mexican</label><br/>
                 </div>
                 <div>
-                    <br/><input type="submit" value="Submit"  className="submitPref"/>
+                  
                 </div>
             </form>
+            <br/><input type="submit" value="Submit"  className="submitPref"/>
         </div>
     );
 };
