@@ -6,7 +6,7 @@ import Location from './location';
 import LocationShow from './LocationShow';
 import SearchShow from './searchShow';
 import SearchPreferences from './searchPreferences';
-
+import Profile from './profile';
 const App = () => {
 	//Add components in switch
 	return(
@@ -27,6 +27,9 @@ const App = () => {
 					</Route>
 					<Route exact path = "/searchPreferences/show">
 						<SearchShow />
+					</Route>
+					<Route exact path = "/profile">
+						<Profile />
 					</Route>
 				</Switch>
 			</Router>
