@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
 import Welcome from './welcome';
+import Preferences from './preferences';
 import Location from './location';
 import LocationShow from './LocationShow';
-
 import Login_and_Signup from './login_and_signup';
 import Signup from './signup';
 import Meal_History from './meal_history';
@@ -16,6 +16,7 @@ import Delete_History from './delete_history'
 import SearchShow from './searchShow';
 import SearchPreferences from './searchPreferences';
 
+
 const App = () => {
 	//Add components in switch
 	return(
@@ -25,6 +26,9 @@ const App = () => {
 					<Route path="/" exact>
 						<Welcome />
 					</Route>
+					<Route exact path="/preferences">
+						<Preferences />
+          </Route>
 					<Route exact path="/location">
 						<Location />
 					</Route>
