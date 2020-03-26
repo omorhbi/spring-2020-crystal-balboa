@@ -10,7 +10,7 @@ const Login_and_Signup = () => {
         <div id= "login_component">
             <h1 className="header_login">Have an account?</h1>
             <p className="p_login">Log in and get access to the best restaurants for YOUR needs.</p>
-            <form>
+            <form id="this_form">
             <label>Username: </label>
             <input type="text" ></input><br></br><br></br>
             <label>Password:   </label>
