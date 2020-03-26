@@ -27,7 +27,7 @@
 	font-family: system-ui;
 }
 
-#restSearchBar{
+#prefRestSearchBar{
 	border: none;
 	border-radius: 5px;
 	position: relative;
@@ -38,7 +38,7 @@
 	font-family: system-ui;
 }
 
-#prefSearchBTN{
+#prefEntBTN{
 	background: #b00b0b;
 	border: none;
 	border-radius: 5px;
@@ -51,7 +51,7 @@
 	font-family: system-ui;
 }
 
-#prefSearchBTN:active {
+#prefEntBTN:active {
   background: #4a0101;
   color: white;
 }
