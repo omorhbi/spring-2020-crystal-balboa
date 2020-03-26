@@ -64,10 +64,6 @@ const App = () => {
 						<Nav />
 						<SearchShow />
 					</Route>
-					<Route exact path = "/searchPreferences">
-						<Nav />
-						<SearchPreferences />
-					</Route>
 					<Route exact path = "/profile">
               <Nav />
               <Profile />
