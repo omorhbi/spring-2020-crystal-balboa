@@ -4,6 +4,7 @@ import './App.css';
 import Welcome from './welcome';
 import Location from './location';
 import LocationShow from './LocationShow';
+
 import Login_and_Signup from './login_and_signup';
 import Signup from './signup';
 import Meal_History from './meal_history';
@@ -12,6 +13,9 @@ import SearchShow from './searchShow';
 import SearchPreferences from './searchPreferences';
 import Edit_History from './edit_history';
 import Delete_History from './delete_history'
+import SearchShow from './searchShow';
+import SearchPreferences from './searchPreferences';
+
 const App = () => {
 	//Add components in switch
 	return(
@@ -44,6 +48,12 @@ const App = () => {
 					</Route>
 					<Route exact path="/mistake">
 						<Mistake />
+          </Route>
+					<Route exact path = "/searchPreferences">
+						<SearchPreferences />
+					</Route>
+					<Route exact path = "/searchPreferences/show">
+						<SearchShow />
 					</Route>
 					<Route exact path = "/searchPreferences">
 						<SearchPreferences />
