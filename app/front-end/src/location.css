@@ -1,0 +1,57 @@
+.location{
+	background-image: url("./images/sushi.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	min-height: 100vh;
+	min-width: 100vh;
+	text-align: center;
+}
+
+#locationAbout{
+	font-family: system-ui;
+	color: white;
+	font-weight: lighter;
+	margin-top: 0;
+	padding-top: 200px;
+	padding-bottom: 30px;
+}
+
+#locSearchBar{
+	border: none;
+	border-radius: 5px;
+	position: relative;
+	height: 37px;
+	width: 15%;
+	outline: none;
+	margin-right: 7px;
+	font-family: system-ui;
+}
+
+#restSearchBar{
+	border: none;
+	border-radius: 5px;
+	position: relative;
+	height: 37px;
+	width: 30%;
+	outline: none;
+	margin-right: 7px;
+	font-family: system-ui;
+}
+
+#locSearchBTN{
+	background: #b00b0b;
+	border: none;
+	border-radius: 5px;
+	position: relative;
+	width: 85px;
+	height: 40px;
+	color: white;
+	font-weight: normal;
+	outline: none;
+	font-family: system-ui;
+}
+
+#locSearchBTN:active {
+  background: #4a0101;
+  color: white;
+}

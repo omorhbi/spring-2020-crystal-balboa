@@ -8,8 +8,8 @@
   min-height: 100vh;
 }
 
-h1{
-  font-weight: bold;
+#about{
+  font-weight: normal;
   font-style: italic;
 }
 
@@ -32,8 +32,9 @@ h1{
   width: 150px;
   height: 50px;
   color: white;
-  font-weight: bolder;
+  font-weight: normal;
   outline: none;
+  font-family: system-ui;
 }
 
 #login-button:active {
@@ -44,4 +45,5 @@ h1{
 .welcome-text{
   margin-right: 200px;
   margin-left: 200px;
+  font-weight: lighter;
 }

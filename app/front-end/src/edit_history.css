@@ -1,0 +1,28 @@
+form{
+    font-size: 30px;
+}
+.input_edit{
+    height: 3em;
+}
+.submit_button{
+    background: #b00b0b;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    width: 150px;
+    height: 50px;
+    color: white;
+    font-weight: normal;
+    outline: none;
+    font-family: system-ui;
+    margin-left: 1px;
+}
+.submit-button:active {
+    background: #4a0101;
+    color: white;
+  }
+
+#edit_page{
+    margin: 0 auto;
+    display: table;
+}
