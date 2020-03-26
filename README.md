@@ -13,4 +13,3 @@ The idea for Supperwhere comes from a commonly recurring dillema: What do I eat 
 ## Prototype Link
 
 [Prototype on Invision](https://projects.invisionapp.com/share/MGW6PTTJ4HP#/screens/407491823_Login_Page)
-
