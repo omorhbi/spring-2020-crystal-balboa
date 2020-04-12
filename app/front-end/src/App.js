@@ -55,7 +55,7 @@ const App = () => {
 					</Route>
 					<Route exact path="/mistake">
 						<Mistake />
-          </Route>
+					</Route>
 					<Route exact path = "/searchPreferences">
 						<Nav />
 						<SearchPreferences />
@@ -65,8 +65,8 @@ const App = () => {
 						<SearchShow />
 					</Route>
 					<Route exact path = "/profile">
-              <Nav />
-              <Profile />
+						<Nav />
+						<Profile />
 					</Route>
 				</Switch>
 
