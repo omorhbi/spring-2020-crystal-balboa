@@ -5,63 +5,68 @@ import { Link } from 'react-router-dom';
 
 const LocationShow = (props) => {
 	const [restaurants, setRestaurants] = useState([]);
+    const [nameSearch, setNameSearch] = useState("");
+    const [locationSearch, setLocationSearch] = useState("");
 
-	useEffect(() => {
-       console.log('fetching restaurants...');
-       // temp api data
-       axios("https://my.api.mockaroo.com/my_saved_schema.json?key=dc49f260")
-        .then(response => {
-            setRestaurants(response.data);
-        })
-        .catch(err => {
-            console.log("No more requests allowed today.")
-            console.log(err);
+    const handleNameChange = event => {
+        setNameSearch(event.target.value);
+    }
 
-            const backupRestaurants = [
-                {
-                    id: 1,
-                    restaurant_name: "Five Guys",
-                    address: "56 W 14th St",
-                    neighborhood: "Chelsea",
-                    city: "New York",
-                    state: "New York",
-                    zip_code: "10011"
-                },
-                {
-                    id: 2,
-                    restaurant_name: "Dim Sum Palace",
-                    address: "59 2nd Ave",
-                    neighborhood: "East Village",
-                    city: "New York",
-                    state: "New York",
-                    zip_code: "10003"
-                }
-            ];
-            setRestaurants(backupRestaurants);
+    const handleLocationChange = event => {
+        setLocationSearch(event.target.value);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const resObject = {
+            resName: nameSearch,
+            resLoc: locationSearch
+        };
+        axios.post('./show', { resObject })
+            .then(res => {
+                const parsed = res.data.restaurants;
+                const resRests = parsed.map(r => {
+                    let addLine = r.location.substr(0,r.location.indexOf(','));
+                    let stateLine = r.location.substr(r.location.indexOf(',')+1);
+                    if(addLine===""){
+                        addLine = stateLine;
+                        stateLine = ""; 
+                    }
+                    return {
+                        restaurant_name: r.name,
+                        address: addLine,
+                        city: stateLine,
+                        cuisine: r.cuisine,
+                        thumb: r.thumbnail
+                    }                    
+                });
+                setRestaurants(resRests);
+            })
+            .catch(err =>{
+                console.log("Error with posting");
+                console.log(err);
         }); 
-    }, []);
-
-	//Temporary restaurant pictures and restaurant data for now, taken from mockaroo and picsum
+    }
 
 	return(
 		<div className="locationShow">
 			<div className="locationShowTop">
 				<h1 id="locationShowAbout">Discover the best restaurants near you.</h1>
 				<div className="abtSearchBar">
-					<input type="text" id="locAbtSearchBar" name="locAbtSearch" placeholder="Enter a location"/>
-					<input type="text" id="restAbtSearchBar" name="restAbtSearch" placeholder="Search for restaurants"/>
-					<Link to="/location/show"><button type="submit" id="locAbtSearchBTN">Search</button></Link>
-				</div>
+					<input type="text" id="locAbtSearchBar" name="locAbtSearch" onChange={handleLocationChange} placeholder="Enter a location"/>
+					<input type="text" id="restAbtSearchBar" name="restAbtSearch" onChange={handleNameChange} placeholder="Search for restaurants"/>
+					<Link to="/location/show"><button type="submit" id="locAbtSearchBTN" onClick={handleSubmit}>Search</button></Link>
+                </div>
 			</div>
 			<div className="locRestList">
 				{restaurants.map(item => (
 					<div className="locRestCard" key={item.id}>
-						<a href={`https://www.google.com/maps/dir/?api=1&destination=${item.address}, ${item.city}, ${item.state} ${item.zip_code}`} target="_blank" className="topRightDir">Directions</a>
-						<img src={`https://picsum.photos/200?id=${item.restaurant_name}`} className="locRestCardImg"/>
+						<a href={`https://www.google.com/maps/dir/?api=1&destination=${item.address}, ${item.city}`} target="_blank" className="topRightDir">Directions</a>
+						<img src={`${item.thumb}`} className="locRestCardImg"/>
 						<div className="restNameList">{item.restaurant_name}</div>
                         <div className="cuisineName">{item.cuisine} Cuisine</div>
 						{item.address}<br />
-						{item.city}, {item.state}, {item.zip_code}<br />
+						{item.city}<br />
                         <Link to = "/meal_history"><a>Add to Meal History</a></Link>
 					</div>
 				))}

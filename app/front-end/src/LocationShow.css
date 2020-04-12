@@ -84,12 +84,33 @@ body {
 	margin-top: 30px;
 }
 
+.topRightDir{
+	position: absolute; 
+	top: 0; 
+	right: 0;
+	padding: 3px;
+	text-decoration: none;
+}
+
+.restNameList{
+	color: #b00b0b;
+	font-weight: bold;
+}
+
+.locRestCardImg{
+	float: left;
+	width: auto;
+	height: 106px;
+	margin-right: 5px;
+}
+
 @media only screen and (max-width: 585px){
 
 	.locRestList{
 		width: 95%;
 		margin: 0 auto;
 		font-family: system-ui;
+		font-size: small;
 	}
 	.abtSearchBar{
 		text-align: center;
@@ -116,24 +137,11 @@ body {
 	  background: #4a0101;
 	  color: white;
 	}
-}
 
-.topRightDir{
-	position: absolute; 
-	top: 0; 
-	right: 0;
-	padding: 3px;
-	text-decoration: none;
-}
-
-.restNameList{
-	color: #b00b0b;
-	font-weight: bold;
-}
-
-.locRestCardImg{
-	float: left;
-	width: auto;
-	height: 106px;
-	margin-right: 5px;
+	.locRestCardImg{
+		float: left;
+		width: auto;
+		height: 88px;
+		margin-right: 5px;
+	}
 }

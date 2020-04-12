@@ -12,8 +12,10 @@ app.use(bodyParser.urlencoded({extended: true})); // decode url-encoded incoming
 
 // post request to show search results
 app.post('/location/show', (req, res) => {
+	const searchName = req.body.resObject.resName;
+	const locName = req.body.resObject.resLoc;
 	zomatoClient.locations({
-	query: "New York City", //Location
+	query: locName, //Location
 	count: 1
 	})
 	.then(function(data) {
@@ -23,7 +25,7 @@ app.post('/location/show', (req, res) => {
 			entity_id: entity_id,
 			entity_type: entity_type,
 			count: 10,
-			q: "American" //Search query
+			q: searchName //Search query
 		})
 		.then(function(resData){
 			//console.log(resData)
@@ -36,7 +38,7 @@ app.post('/location/show', (req, res) => {
 					rating: r.user_rating.aggregate_rating,
 					cuisine: r.cuisines
 		      	}
-		    })
+		    });
 		    res.json({ restaurants });
 		})
 		.catch(function(err){
