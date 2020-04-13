@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 const SearchShow = (props) => { // props will come from the state variables in preferences.js
 	const [restaurants, setRestaurants] = useState([]);
+    
     // hard coded preferences but will act differently once preferences are saved
     // to a database
     const [preferences, setPreferences] = useState(["American",
@@ -22,7 +23,6 @@ const SearchShow = (props) => { // props will come from the state variables in p
 
     const handleNameChange = event => {
         setNameSearch(event.target.value);
-        //console.log(nameSearch);
     }
 
     const handleLocationChange = event => {
