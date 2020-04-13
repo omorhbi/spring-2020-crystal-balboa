@@ -11,7 +11,7 @@ app.use(bodyParser.json());  // decode JSON-formatted incoming POST data
 app.use(bodyParser.urlencoded({extended: true})); // decode url-encoded incoming POST data
 
 // post request to show search results
-app.post('/location/show', (req, res) => {
+app.post('/location/show', (req, res) => {	
 	const searchName = req.body.resObject.resName;
 	const locName = req.body.resObject.resLoc;
 	zomatoClient.locations({
