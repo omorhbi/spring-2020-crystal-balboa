@@ -5,11 +5,7 @@ const bodyParser = require('body-parser');
 const zomato = require('zomato.js');
 const apiKey = process.env.ZOMATO_API_KEY; //export ZOMATO_API_KEY="key"
 const zomatoClient = new zomato(apiKey);
-/*const React = require('react');
-const reactDomServer = require('react-dom/server');
-const template = require('./searchShowTemplate');
-const renderSearchShow = require('./renderSearchShow');
-const SearchShow = require('../front-end/src/searchShow');*/
+
 // use the bodyparser middleware to parse any data included in a request
 app.use(bodyParser.json());  // decode JSON-formatted incoming POST data
 app.use(bodyParser.urlencoded({extended: true})); // decode url-encoded incoming POST data
@@ -56,16 +52,6 @@ app.post('/location/show', (req, res) => {
     	console.error(err);
     });
 });
-// leaving this for a future sprint
-//renderSearchShow(app);
-/*app.get('/searchPreferences/show', (req, res) => {
-	const html = reactDomServer.renderToString(<SearchShow />);
-
-	res.send(template({
-		body: html,
-		title: 'Suppperwhere'
-	}));
-});*/
 
 app.post('/searchPreferences/show', (req, res) => {
 	const searchName = req.body.resObject.resName;
@@ -112,5 +98,50 @@ app.post('/searchPreferences/show', (req, res) => {
     });
 });
 
+app.post('/profile', (req, res) => {
+
+	zomatoClient.locations({
+		query: "New York City",
+		count: 1
+	})
+	.then(function(data){
+		const entity_id = data[0].entity_id;
+		const entity_type = data[0].entity_type;
+		zomatoClient.search({
+			entity_id: entity_id,
+			entity_type: entity_type,
+			count: 3
+		})
+		.then(function(resData){
+			// these two lists are temporary so they only serve as a model for how
+			// these lists will be used when it comes from a database during the next sprint
+			const savedRestaurants = ["Joe's Shanghai", "Xi'an Famous Foods"]
+			const savedPreferences = ["Chinese", "American", "Italian", "Desserts", "New American", "Bagels"]
+			
+			const filteredRes = resData.restaurants.filter(restaurant =>
+		    	(!savedRestaurants.includes(restaurant.name)) && savedPreferences.some(res =>
+		    		restaurant.cuisines.split(', ').includes(res)));
+			
+			const restaurants = filteredRes.map(r => {
+					return {
+						name: r.name,
+						location: r.location.address,
+						price: r.price_range,
+						thumbnail: r.thumb,
+						rating: r.user_rating.aggregate_rating,
+						cuisine: r.cuisines
+			      	}
+		    });
+
+		    res.json({ restaurants });
+		})
+		.catch(function(err){
+			console.log(err)
+		});
+    })
+    .catch(function(err) {
+    	console.error(err);
+    });
+});
 // export the express app we created to make it available to other modules
 module.exports = app;

@@ -5,56 +5,51 @@ import './profile.css';
 
 const Profile = (props) => {
 	const [restaurants, setRestaurants] = useState([]);
-	const [preferences, setPreferences] = useState(["Middle Eastern",
+	const [preferences, setPreferences] = useState(["American",
+                                                    "Desserts",
 													"Tex-Mex",
-													"Asian"]);
+													"Chinese",
+                                                    "Bagels",
+                                                    "New American"]);
 	const [count, setCount] = useState(0);
 	const [priceRange, setPriceRange] = useState(["$, $$, $$$"])
 
-	const range = `${priceRange[0]} - ${priceRange[priceRange.length]}`;
-	console.log("price drange " + priceRange[0]);
-	useEffect(() => {
-       console.log('fetching restaurants...');
-       // temp api data
-       axios("https://my.api.mockaroo.com/my_saved_schema.json?key=dc49f260")
-        .then(response => {
-            setRestaurants(response.data);
-            const filter = response.data.filter(restaurant => 
-                preferences.includes(restaurant.cuisine));
-            setRestaurants(filter);
-            // props.culinaryPreferences and props.priceRange would serve as the variables
-			// to compare here for filtering.
-			// for profile page, the page will only show 4 restaurants for that day
-        })
-        .catch(err => {
-            console.log("No more requests allowed today.")
-            console.log(err);
+    const [resName, setResName] = useState(["Joe's Shanghai", "Xi'an Famous Foods"]);
+    const [resLoc, setResLoc] = useState("New York City");
 
-            const backupRestaurants = [
-                {
-                    id: 1,
-                    restaurant_name: "Five Guys",
-                    address: "56 W 14th St",
-                    neighborhood: "Chelsea",
-                    city: "New York",
-                    state: "New York",
-                    zip_code: "10011",
-                    cuisine: "Burger"
-                },
-                {
-                    id: 2,
-                    restaurant_name: "Dim Sum Palace",
-                    address: "59 2nd Ave",
-                    neighborhood: "East Village",
-                    city: "New York",
-                    state: "New York",
-                    zip_code: "10003",
-                    cuisine: "Dim Sum"
-                }
-            ];
-            setRestaurants(backupRestaurants);
-        }); 
-    }, []);
+    const resObject = {
+        name: resName,
+        loc: resLoc
+    };
+	/*const range = `${priceRange[0]} - ${priceRange[priceRange.length]}`;
+	console.log("price drange " + priceRange[0]);*/
+    useEffect(() =>{
+        axios.post('./profile', { resObject })
+            .then(res => {
+                const parsed = res.data.restaurants;
+                const resRests = parsed.map(r => {
+                    let addLine = r.location.substr(0,r.location.indexOf(','));
+                    let stateLine = r.location.substr(r.location.indexOf(',')+1);
+                    if(addLine===""){
+                        addLine = stateLine;
+                        stateLine = ""; 
+                    }
+                    return {
+                        restaurant_name: r.name,
+                        address: addLine,
+                        city: stateLine,
+                        cuisine: r.cuisine,
+                        thumb: r.thumbnail
+                    }                    
+                });
+                setRestaurants(resRests);
+            })
+            .catch(err =>{
+                console.log("Error with posting");
+                console.log(err);
+        });
+    }, []); 
+
 
     return (
     	<div className = "profile">
@@ -66,12 +61,12 @@ const Profile = (props) => {
     		<div className = "profileRestList">
     			{restaurants.map(item => (
     				<div className = "profileRestCard" key = {item.id}>
-    					<a href = {`https://www.google.com/maps/dir/?api=1&destination=${item.address}, ${item.city}, ${item.state} ${item.zip_code}`} target="_blank" className="topRightDir">Directions</a>
-    					<img src={`https://picsum.photos/200?id=${item.restaurant_name}`} className="profileRestCardImg"/>
+    					<a href = {`https://www.google.com/maps/dir/?api=1&destination=${item.address}, ${item.city}`} target="_blank" className="topRightDir">Directions</a>
+    					<img src={`${item.thumb}`} className="profileRestCardImg"/>
     					<div className = "restNameList">{item.restaurant_name}</div>
     					<div className = "cuisineName">{item.cuisine} Cuisine</div>
     					{item.address}<br />
-    					{item.city}, {item.state}, {item.zip_code}<br />
+    					{item.city}<br />
     					<Link to = "/meal_history"><a>Add to Meal History</a></Link>
     				</div>
     			))}

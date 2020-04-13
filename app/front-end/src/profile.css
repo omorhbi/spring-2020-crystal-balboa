@@ -91,55 +91,6 @@ body {
 
 }
 
-@media only screen and (max-width: 585px){
-
-	.preferencesList{
-		background-color: white;
-		border-radius: 3px;
-		border: solid;
-		border-width: thin;
-		width: 90%;
-		text-align: center;
-	}
-	.prefCol{
-		float: left;
-		width: 50%;
-	}
-	.preferencesList:after{
-		content: "";
-		display: table;
-		clear: both;
-	}
-
-	.profileRestList{
-		width: 95%;
-		margin: 0 auto;
-		font-family: system-ui;
-	}
-
-}
-
-@media only screen and (min-width: 586px) and (max-width: 1109px){
-	.preferencesList{
-		background-color: white;
-		border-radius: 3px;
-		border: solid;
-		border-width: thin;
-		width: 70%;
-		text-align: center;
-	}
-	.prefCol{
-		float: left;
-		width: 50%;
-	}
-	.preferencesList:after{
-		content: "";
-		display: table;
-		clear: both;
-	}
-
-}
-
 #prefText {
 	color: #b00b0b;
 	font-weight: bold;
@@ -197,3 +148,62 @@ body {
 	height: 106px;
 	margin-right: 5px;
 }
+
+@media only screen and (max-width: 585px){
+
+	.preferencesList{
+		background-color: white;
+		border-radius: 3px;
+		border: solid;
+		border-width: thin;
+		width: 90%;
+		text-align: center;
+	}
+	.prefCol{
+		float: left;
+		width: 50%;
+	}
+	.preferencesList:after{
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+	.profileRestList{
+		width: 95%;
+		margin: 0 auto;
+		font-family: system-ui;
+		font-size: small;
+
+	}
+
+	.profileRestCardImg{
+		float: left;
+		width: auto;
+		height: 88px;
+		margin-right: 5px;
+	}
+
+}
+
+@media only screen and (min-width: 586px) and (max-width: 1109px){
+	.preferencesList{
+		background-color: white;
+		border-radius: 3px;
+		border: solid;
+		border-width: thin;
+		width: 70%;
+		text-align: center;
+	}
+	.prefCol{
+		float: left;
+		width: 50%;
+	}
+	.preferencesList:after{
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+}
+
