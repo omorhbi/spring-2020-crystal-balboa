@@ -2,57 +2,83 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios'; 
 import './searchShow.css';
 import { Link } from 'react-router-dom';
+//import SearchPreferences from './searchPreferences.js';
 // import Preferences from './preferences'; // what props will be based off
 
 const SearchShow = (props) => { // props will come from the state variables in preferences.js
 	const [restaurants, setRestaurants] = useState([]);
     // hard coded preferences but will act differently once preferences are saved
     // to a database
-    const [preferences, setPreferences] = useState(["Middle Eastern",
-                                                    "Tex-Mex",
-                                                    "Asian"]);
+    const [preferences, setPreferences] = useState(["American",
+                                                    "Desserts",
+                                                    "Chinese",
+                                                    "Italian",
+                                                    "Bagels",
+                                                    "New American"]);
+    const [priceRange, setPriceRange] = useState([1,2,3,4]);
 
-	useEffect(() => {
-       console.log('fetching restaurants...');
-       // temp api data
-       axios("https://my.api.mockaroo.com/my_saved_schema.json?key=dc49f260")
-        .then(response => {
-            setRestaurants(response.data);
-            const filter = response.data.filter(restaurant => 
-                preferences.includes(restaurant.cuisine));
-            setRestaurants(filter);
-            // props.culinaryPreferences and props.priceRange would serve as the variables
-            // to compare here for filtering.
-        })
-        .catch(err => {
-            console.log("No more requests allowed today.")
-            console.log(err);
+    const [nameSearch, setNameSearch] = useState("");
+    const [locationSearch, setLocationSearch] = useState("");
 
-            const backupRestaurants = [
-                {
-                    id: 1,
-                    restaurant_name: "Five Guys",
-                    address: "56 W 14th St",
-                    neighborhood: "Chelsea",
-                    city: "New York",
-                    state: "New York",
-                    zip_code: "10011",
-                    cuisine: "Burger"
-                },
-                {
-                    id: 2,
-                    restaurant_name: "Dim Sum Palace",
-                    address: "59 2nd Ave",
-                    neighborhood: "East Village",
-                    city: "New York",
-                    state: "New York",
-                    zip_code: "10003",
-                    cuisine: "Dim Sum"
+    const handleNameChange = event => {
+        setNameSearch(event.target.value);
+        //console.log(nameSearch);
+    }
+
+    const handleLocationChange = event => {
+        setLocationSearch(event.target.value);
+    }
+
+    let slicedData;
+    let splitCuisines;
+    const handleSubmit = event => {
+        event.preventDefault();
+        const resObject = {
+            resName: nameSearch,
+            resLoc: locationSearch
+        };
+        axios.post('./show', { resObject })
+            .then(res => {
+                const maxPriceRange = Math.max(...priceRange);
+                const parsedData = res.data.restaurants;
+                for (let i = 0; i < parsedData.length; i++){
+                    splitCuisines = parsedData[i].cuisine.split(', ');
+                    console.log(splitCuisines);
                 }
-            ];
-            setRestaurants(backupRestaurants);
-        }); 
-    }, []);
+                const filteredRes = parsedData.filter(restaurant =>
+                    preferences.some(r => restaurant.cuisine.split(', ').includes(r)) && restaurant.price <= maxPriceRange
+                );
+                if (filteredRes.length <= 10){
+                    slicedData = filteredRes;
+                }
+                else if (filteredRes.length > 10){
+                    slicedData = filteredRes.slice(0,10);
+                }
+
+                const restaurants = slicedData.map(res => {
+                    let address = res.location.substr(0, res.location.indexOf(','));
+                    let state = res.location.substr(res.location.indexOf(',') + 1);
+                    if (address === ""){
+                        address = state;
+                        state = "";
+                    }
+                    return {
+                        restaurant_name: res.name,
+                        address: address,
+                        city: state,
+                        cuisine: res.cuisine,
+                        thumbnail: res.thumbnail
+                    }
+                });
+                setRestaurants(restaurants);
+            })
+            .catch(err =>{
+                console.log("Error with posting");
+                console.log(err);
+            });
+
+    }
+ 
 
 	//Temporary restaurant pictures and restaurant data for now, taken from mockaroo and picsum
 	return(
@@ -60,20 +86,22 @@ const SearchShow = (props) => { // props will come from the state variables in p
 			<div className="searchShowTop">
 				<h1 id="searchShowAbout">Search for restaurants based on your preferences.</h1>
 				<div className="abtSearchBar">
-					<input type="text" id="prefAbtSearchBar" name="prefAbtSearch" placeholder="Enter a location"/>
-					<input type="text" id="restAbtSearchBar" name="restAbtSearch" placeholder="Search for restaurants"/>
-					<Link to="/searchPreferences/show"><button type="submit" id="prefAbtSearchBTN">Search</button></Link>
+                    <form>
+    					<input type="text" id="prefAbtSearchBar" name="prefAbtSearch" value = {locationSearch} onChange= {handleLocationChange} placeholder="Enter a location"/>
+    					<input type="text" id="restAbtSearchBar" name="restAbtSearch" value = {nameSearch} onChange = {handleNameChange} placeholder="Search for restaurants"/>
+    					<Link to="/searchPreferences/show"><button type="submit" onClick = {handleSubmit} id="prefAbtSearchBTN">Search</button></Link>
+                    </form>
 				</div>
 			</div>
 			<div className="prefRestList">
 				{restaurants.map(item => (
 					<div className="prefRestCard" key={item.id}>
-						<a href={`https://www.google.com/maps/dir/?api=1&destination=${item.address}, ${item.city}, ${item.state} ${item.zip_code}`} target="_blank" className="topRightDir">Directions</a>
-						<img src={`https://picsum.photos/200?id=${item.restaurant_name}`} className="prefRestCardImg"/>
+						<a href={`https://www.google.com/maps/dir/?api=1&destination=${item.address}, ${item.city}`} target="_blank" className="topRightDir">Directions</a>
+						<img src={`${item.thumbnail}`} className="prefRestCardImg"/>
 						<div className="restNameList">{item.restaurant_name}</div>
                         <div className = "cuisineName">{item.cuisine} Cuisine</div>
 						{item.address}<br />
-						{item.city}, {item.state}, {item.zip_code}<br />
+						{item.city}<br />
                         <Link to = "/meal_history"><a>Add to Meal History</a></Link>
 					</div>
 				))}
