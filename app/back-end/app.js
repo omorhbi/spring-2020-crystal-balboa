@@ -1,6 +1,7 @@
 // import and instantiate express
 const express = require('express'); // CommonJS import style!
 const app = express(); // instantiate an Express object
+const path = require('path');
 const bodyParser = require('body-parser');
 const zomato = require('zomato.js');
 const apiKey = process.env.ZOMATO_API_KEY; //export ZOMATO_API_KEY="key"
@@ -9,6 +10,7 @@ const zomatoClient = new zomato(apiKey);
 // use the bodyparser middleware to parse any data included in a request
 app.use(bodyParser.json());  // decode JSON-formatted incoming POST data
 app.use(bodyParser.urlencoded({extended: true})); // decode url-encoded incoming POST data
+
 
 // post request to show search results
 app.post('/location/show', (req, res) => {	

@@ -12,11 +12,13 @@
     "body-parser": "^1.19.0",
     "chai-http": "^4.3.0",
     "express": "^4.17.1",
+    "react": "^16.13.1",
     "zomato": "^1.1.0",
     "zomato.js": "^1.1.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "concurrently": "^5.1.0",
     "mocha": "^7.1.1",
     "nodemon": "^2.0.2"
   }
