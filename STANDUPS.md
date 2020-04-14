@@ -1,4 +1,36 @@
 # Standup
+### 4/13/2020
+- Search preferences and regular search are done, profile will be done by the end of the sprint.
+- Tests for the former two are up and functional, with the third test being done as profile is merged.
+- No blockers.
+
+### 4/10/2020
+- The search preferences post request has been merged, and with it, functional tests are working for it. The other pages (regular search, profile) are in progress, but they seem relatively similar to the search preferences request. The tests will follow suit.
+- No blockers.
+
+### 4/8/2020
+- The search preferences post request is functional, the other pages are in progress. Testing cannot be done until it is committed, so the test pages are simply proofs of concept. Everyone is continuing to make progress on their respective pages.
+- No blockers.
+### 4/6/2020
+- More work has been made on the pages needed for post requests, but there is some issue integrating the react frontend with the express backend. We agreed to work on this integration later in the sprint, as the app can still function, albeit a little less intuitively.
+- No blockers
+
+### 4/3/2020
+- We have agreed that some pages may not need backend integration, since we are using axios for the front. Some progress has been made on the express backend, including boilerplate code and a rough draft how to make post requests on search pages
+- No blockers.
+### 4/1/2020
+- Everyone has learned mocha and chai to some extent. We have discussed what we need from the backend, which is the issuing of post requests for future DB integration.
+- No blockers.
+
+### 3/30/2020
+- Everyone is still learning mocha and chai testing as their main objectives.
+- No blockers.
+
+### 3/27/2020
+- React sprint is done, we began to theorize what the backend would need. We posited creating get requests for each route, but weren't sure about the post requests.
+- We all agreed to learn mocha and chai testing in our spare time.
+- No blockers.
+
 ### 3/25/2020
 - All pages are at least complete with HTML and CSS, all that is left is putting them together and making sure they form a cohesive prototype
 - Some issues with linking between pages was identified, but everyone agreed to work at night to fix it together
