@@ -19,6 +19,6 @@ The idea for Supperwhere comes from a commonly recurring dillema: What do I eat 
 1. Go to [Zomato's API credentials](https://developers.zomato.com/api#headline2) page to generate a free key.
 2. cd into the front-end folder from the app directory. npm install to make sure you have all the dependencies on that folder. Then input npm start to start the react portion of the app, which will send you to the homepage.
 3. cd back to the back-end folder from the app directory.
-4. To run the back-end, first export the API key into the root directory of the back-end folder. Type in verbatim export ZOMATO_API_KEY="insert_api_key_here". 'Insert_api_key_here' means the API key must be pasted here inside quotes.
+4. To run the back-end, first export the API key into the root directory of the back-end folder. Type in verbatim export ZOMATO_API_KEY="insert_api_key_here". "insert_api_key_here" means the API key must be pasted here inside quotes.
 5. Once it's exported, npm install on the back-end folder to be safe in terms of having all the dependencies for express and Zomato.
 6. Once that's set up, do npx nodemon server to start the server, and you're all set.
