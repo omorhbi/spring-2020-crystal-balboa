@@ -1,17 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-const User = new mongoose.Schema({
-    name: String,
-    username: String,
-    password: String,
-    zipCode: Number,
-    history: [Restaurant],
-    preferences: {
-        price: Number, 
-        type: [String]
-    }
-});
+
 
 const Restaurant = new mongoose.Schema({
     name: String,
@@ -23,6 +13,18 @@ const Restaurant = new mongoose.Schema({
     dateMonth: Number,
     dateDay: Number,
     dateYear: Number
+});
+
+const User = new mongoose.Schema({
+    name: String,
+    username: String,
+    password: String,
+    zipCode: Number,
+    history: [Restaurant],
+    preferences: {
+        price: Number, 
+        type: [String]
+    }
 });
 
 mongoose.model('User', User);
