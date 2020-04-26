@@ -22,7 +22,7 @@ const User = new mongoose.Schema({
     zipCode: Number,
     history: [Restaurant],
     preferences: {
-        price: Number, 
+        price: [Number], 
         type: [String]
     }
 });
