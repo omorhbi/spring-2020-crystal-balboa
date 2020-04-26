@@ -6,6 +6,10 @@ const bodyParser = require('body-parser');
 const zomato = require('zomato.js');
 const apiKey = process.env.ZOMATO_API_KEY; //export ZOMATO_API_KEY="key"
 const zomatoClient = new zomato(apiKey);
+require('./db');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const Restaurant = mongoose.model('Restaurant');
 
 // use the bodyparser middleware to parse any data included in a request
 app.use(bodyParser.json());  // decode JSON-formatted incoming POST data
