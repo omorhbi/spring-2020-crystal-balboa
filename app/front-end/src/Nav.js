@@ -13,7 +13,6 @@ const Nav = () => {
 				<div><Link to='/profile' className="navLink">Profile</Link></div>
 				<div><Link to='/meal_history' className="navLink">Meal History</Link></div>
 				<div><Link to='/preferences' className="navLink">Preferences</Link></div>
-				<div><Link to='/searchPreferences/show' className="navLink">Preferences Search</Link></div>
 				<div><Link to='/location/show' className="navLink">Search</Link></div>
 				</div>
 		</div>

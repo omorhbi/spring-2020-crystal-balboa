@@ -49,6 +49,19 @@ body {
 	font-family: system-ui;
 }
 
+#prefsCheck{
+	border: solid;
+	border-width: thin;
+	border-color: #b00b0b;
+	border-radius: 5px;
+	position: relative;
+	height: 40px;
+	width: 10%;
+	outline: none;
+	margin-right: 7px;
+	font-family: system-ui;
+}
+
 #locAbtSearchBTN{
 	background: #b00b0b;
 	border: none;
@@ -127,6 +140,15 @@ body {
 		height: 36px;
 		width: 60%;
 	}
+
+	#prefsCheck{
+		margin: auto;
+		margin-top: 10px;
+		height: 40px;
+		width: 40%;
+		display: block;
+	}
+
 	#locAbtSearchBTN{
 		margin-left: 30%;
 		margin-right: 30%;
