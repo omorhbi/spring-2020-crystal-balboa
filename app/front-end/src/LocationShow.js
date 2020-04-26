@@ -7,6 +7,7 @@ const LocationShow = (props) => {
 	const [restaurants, setRestaurants] = useState([]);
     const [nameSearch, setNameSearch] = useState("");
     const [locationSearch, setLocationSearch] = useState("");
+    const [checkPrefs, setPrefs] = useState(false);
 
     const handleNameChange = event => {
         setNameSearch(event.target.value);
@@ -17,35 +18,68 @@ const LocationShow = (props) => {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const resObject = {
-            resName: nameSearch,
-            resLoc: locationSearch
-        };
-        axios.post('./show', { resObject })
-            .then(res => {
-                const parsed = res.data.restaurants;
-                const resRests = parsed.map(r => {
-                    let addLine = r.location.substr(0,r.location.indexOf(','));
-                    let stateLine = r.location.substr(r.location.indexOf(',')+1);
-                    if(addLine===""){
-                        addLine = stateLine;
-                        stateLine = ""; 
-                    }
-                    return {
-                        restaurant_name: r.name,
-                        address: addLine,
-                        city: stateLine,
-                        cuisine: r.cuisine,
-                        thumb: r.thumbnail
-                    }                    
-                });
-                setRestaurants(resRests);
-            })
-            .catch(err =>{
-                console.log("Error with posting");
-                console.log(err);
-        }); 
+        if(checkPrefs === false){
+            event.preventDefault();
+            const resObject = {
+                resName: nameSearch,
+                resLoc: locationSearch
+            };
+            axios.post('./show', { resObject })
+                .then(res => {
+                    const parsed = res.data.restaurants;
+                    const resRests = parsed.map(r => {
+                        let addLine = r.location.substr(0,r.location.indexOf(','));
+                        let stateLine = r.location.substr(r.location.indexOf(',')+1);
+                        if(addLine===""){
+                            addLine = stateLine;
+                            stateLine = ""; 
+                        }
+                        return {
+                            restaurant_name: r.name,
+                            address: addLine,
+                            city: stateLine,
+                            cuisine: r.cuisine,
+                            thumb: r.thumbnail
+                        }                    
+                    });
+                    setRestaurants(resRests);
+                })
+                .catch(err =>{
+                    console.log("Error with posting");
+                    console.log(err);
+            }); 
+        }
+        else{
+            event.preventDefault();
+            const resObject = {
+                resName: nameSearch,
+                resLoc: locationSearch
+            };
+            axios.post('./prefshow', { resObject })
+                .then(res => {
+                    //console.log(res.data);
+                    const parsed = res.data.restaurants;
+                    //console.log(parsed);
+                    const resRests = parsed.map(r => {
+                        return {
+                            restaurant_name: r.restaurant_name,
+                            address: r.address,
+                            city: r.city,
+                            cuisine: r.cuisine,
+                            thumb: r.thumbnail
+                        }                    
+                    });
+                    setRestaurants(resRests);
+                })
+                .catch(err =>{
+                    console.log("Error with posting");
+                    console.log(err);
+            }); 
+        }
+    }
+
+    const changeSearch = (event) => {
+        setPrefs(!checkPrefs)
     }
 
 	return(
@@ -55,6 +89,10 @@ const LocationShow = (props) => {
 				<div className="abtSearchBar">
 					<input type="text" id="locAbtSearchBar" name="locAbtSearch" onChange={handleLocationChange} placeholder="Enter a location"/>
 					<input type="text" id="restAbtSearchBar" name="restAbtSearch" onChange={handleNameChange} placeholder="Search for restaurants"/>
+                    <select id="prefsCheck" onChange={changeSearch}>
+                        <option>No Preferences</option>
+                        <option>With Preferences</option>
+                    </select>
 					<Link to="/location/show"><button type="submit" id="locAbtSearchBTN" onClick={handleSubmit}>Search</button></Link>
                 </div>
 			</div>

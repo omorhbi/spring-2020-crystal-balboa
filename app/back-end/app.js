@@ -55,9 +55,11 @@ app.post('/location/show', (req, res) => {
     });
 });
 
-app.post('/searchPreferences/show', (req, res) => {
+app.post('/location/prefshow', (req, res) => {
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
+	const priceRange = [1,2,3,4];
+	const preferences = ["American", "Desserts", "Chinese"];
 
 	if (locName === ''){
 		locName = "New York City";
@@ -68,7 +70,6 @@ app.post('/searchPreferences/show', (req, res) => {
 		count: 1
 	})
 	.then(function(data){
-		console.log(data);
 		const entity_id = data[0].entity_id;
 		const entity_type = data[0].entity_type;
 		zomatoClient.search({
@@ -78,7 +79,7 @@ app.post('/searchPreferences/show', (req, res) => {
 		})
 		.then(function(resData){
 			//console.log(resData.restaurants);
-			const restaurants = resData.restaurants.map(r => {
+			let restaurants = resData.restaurants.map(r => {
 				return {
 					name: r.name,
 					location: r.location.address,
@@ -88,7 +89,39 @@ app.post('/searchPreferences/show', (req, res) => {
 					cuisine: r.cuisines
 		      	}
 		    });
-		    console.log(restaurants);
+		    //console.log(restaurants);
+		    let slicedData;
+    		let splitCuisines;
+            const maxPriceRange = Math.max(...priceRange);
+            const parsedData = restaurants;
+            for (let i = 0; i < parsedData.length; i++){
+                splitCuisines = parsedData[i].cuisine.split(', ');
+            }
+            const filteredRes = parsedData.filter(restaurant =>
+                preferences.some(r => restaurant.cuisine.split(', ').includes(r)) && restaurant.price <= maxPriceRange
+            );
+            if (filteredRes.length <= 10){
+            	slicedData = filteredRes;
+            }
+            else if (filteredRes.length > 10){
+            	slicedData = filteredRes.slice(0,10);
+            }
+            restaurants = slicedData.map(res => {
+            	let address = res.location.substr(0, res.location.indexOf(','));
+            	let state = res.location.substr(res.location.indexOf(',') + 1);
+            	if (address === ""){
+            		address = state;
+                    state = "";
+                }
+                return {
+                	restaurant_name: res.name,
+                	address: address,
+                	city: state,
+                	cuisine: res.cuisine,
+                	thumbnail: res.thumbnail
+                }
+            });
+            console.log(restaurants);
 		    res.json({ restaurants });
 		})
 		.catch(function(err){
