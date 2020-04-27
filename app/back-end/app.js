@@ -68,7 +68,7 @@ app.post('/signup', async (req, res) => {
 		name: req.body.firstname,
 		username: username,
 		password: hashedPass,
-		zipCode: req.body.zip,
+		zipCode: req.body.zipCode,
 		history: [],
 		preferences: {
 			price: [1,2,3,4],
@@ -104,11 +104,13 @@ app.post('/login', async (req,res) => {
 
 	const user = await User.findOne({username: req.body.username});
 	if (!user){
-		return console.log('user is not found');
+		console.log('user is not found');
+		return res.json({ mistake: "Error"});
 	}
 	const validPassword = await bcrypt.compare(req.body.password, user.password);
 	if (!validPassword){
-		return console.log('Invalid Password');
+		console.log('Invalid Password');
+		return res.json({ mistake: "Error"});
 	}
 	// create a token for the user
 	const token = jwt.sign({user}, process.env.TOKEN_SECRET, {
