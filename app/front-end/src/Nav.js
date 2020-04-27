@@ -1,9 +1,17 @@
 import React from 'react';
 import './navBar.css'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Logo from './images/supperwhereS1.png';
 
 const Nav = () => {
+	const history = useHistory();
+
+	const handleSubmit = (event) => {
+		localStorage.removeItem('jwtToken');
+		console.log('JWT Removed. Logging out.');
+		history.push('/');
+	}
+
 	return (
 		<nav className="nav-Links">
 		<img src={Logo} className="navImg"/>
@@ -16,6 +24,7 @@ const Nav = () => {
 				<div><Link to='/location/show' className="navLink">Search</Link></div>
 				</div>
 		</div>
+		<button id="logout" type="submit" onClick={handleSubmit}>Log Out</button>
 		</nav>
 	)
 }
