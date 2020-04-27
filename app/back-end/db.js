@@ -16,15 +16,18 @@ const Restaurant = new mongoose.Schema({
 });
 
 const User = new mongoose.Schema({
-    name: String,
-    username: String,
-    password: String,
+    username: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true,
+        min: 6
+    },
     zipCode: Number,
     history: [Restaurant],
-    preferences: {
-        price: [Number], 
-        type: [String]
-    }
+    preferences: Object
 });
 
 mongoose.model('User', User);

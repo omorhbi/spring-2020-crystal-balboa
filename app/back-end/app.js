@@ -1,5 +1,6 @@
 // import and instantiate express
 const express = require('express'); // CommonJS import style!
+require('dotenv').config();
 const app = express(); // instantiate an Express object
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -10,14 +11,124 @@ require('./db');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Restaurant = mongoose.model('Restaurant');
+const { registerValidation, loginValidation } = require('./validation');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // use the bodyparser middleware to parse any data included in a request
 app.use(bodyParser.json());  // decode JSON-formatted incoming POST data
 app.use(bodyParser.urlencoded({extended: true})); // decode url-encoded incoming POST data
 
+function authorized(req, res, next){
+	const token = req.header('auth-token');
+	if (!token){
+		console.log("Access denied!");
+		res.redirect('/login');
+	}
+	try {
+		const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+		req.user = verified;
+		next();
+	}
+	catch (err){
+		console.log("invalid token here.");
+	}
+}
+
+app.post('/signup', async (req, res) => {
+	const username = req.body.username;
+	//console.log(username);
+	//console.log("hey");
+	const upMyO = {username: username, password: req.body.password};
+	const error = registerValidation(upMyO);
+	//console.log(error);
+	if (error.error) {
+		console.log("validation error");
+		console.log(error.error);
+		return res.redirect('/mistake');
+		//return res.send(error);
+	}
+	const userFound = await User.findOne({username: username});
+	if (userFound){
+		return console.log('username already exists');
+	}
+
+	// hash passwords
+	const salt = await bcrypt.genSalt(10);
+	const hashedPass = await bcrypt.hash(req.body.password, salt);
+
+	const user = new User({
+		name: req.body.firstname,
+		username: username,
+		password: hashedPass,
+		zipCode: req.body.zip,
+		history: [],
+		preferences: {
+			price: [1,2,3,4],
+			type: []
+		}
+	});
+	
+	user.save((err) =>{
+		if (err){
+			console.log(err + "user died");
+
+		}
+		else {
+			console.log(user + "user added");
+			const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
+			expiresIn: "1d"
+			});
+			res.header('auth-token', token);
+			console.log(token, " this is the token");
+			res.redirect('/profile');
+			//res.send(user);
+		}
+	});
+	//console.log(user);
+	//res.redirect('/profile');
+
+});
+
+app.post('/login_and_signup', async (req,res) => {
+
+	const username = req.body.username;
+	//console.log(username);
+	//console.log("hey");
+	const upMyO = {username: username, password: req.body.password};
+	const error = registerValidation(upMyO);
+	//console.log(error);
+	if (error.error) {
+		console.log("validation error");
+		console.log(error.error);
+		return res.redirect('/mistake');
+		//return res.send(error);
+	}
+
+	const user = await User.findOne({username: req.body.username});
+	if (!user){
+		return console.log('user is not found');
+	}
+	const validPassword = await bcrypt.compare(req.body.password, user.password);
+	if (!validPassword){
+		return console.log('Invalid Password');
+	}
+	// create a token for the user
+	const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
+		expiresIn: "1d"
+	});
+	res.header('auth-token', token);
+
+	console.log("Logged in!");
+	res.redirect('/profile');
+});
+
 
 // post request to show search results
-app.post('/location/show', (req, res) => {	
+app.post('/location/show', authorized(), (req, res) => {
+	//const token = res.header('auth-token');
+	//console.log(token);
+	console.log()	
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
 	if (locName === ''){
@@ -59,7 +170,7 @@ app.post('/location/show', (req, res) => {
     });
 });
 
-app.post('/location/prefshow', (req, res) => {
+app.post('/location/prefshow', authorized(), (req, res) => {
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
 	const priceRange = [1,2,3,4];
@@ -137,7 +248,8 @@ app.post('/location/prefshow', (req, res) => {
     });
 });
 
-app.post('/profile', (req, res) => {
+
+app.post('/profile', authorized(), (req, res) => {
 
 	zomatoClient.locations({
 		query: "New York City",

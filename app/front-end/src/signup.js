@@ -6,7 +6,7 @@ const Signup = () => {
     return(
         <div id="parent_1">
             <h1 id="coolio">Embark on your food journey.</h1>
-            <form>
+            <form action="/signup" method="post">
             <label>First Name: </label>
             <input type="text" name="firstname"></input>
             <p className="signup_para">(This is the name Supperwhere will use to refer to you.)</p>
@@ -19,18 +19,15 @@ const Signup = () => {
             <label>Zip Code: </label>
             <input type="text" required maxlength="5" name="zip"></input>
             <p className="signup_para">(You can always change this, so don't worry.)</p>
-            </form>
             <br></br>
             <div id="button">
-            <a href="/profile" class="anchor"><button id="login-button">Submit (mimics successful signup)</button></a>
+            <button id="login-button" type="submit" formMethod="post">Submit</button>
             </div>
+            </form>
             <br></br>
             <br></br>
-
-
-
         </div>
     )
 };
 
-export default Signup; 
+export default Signup;
