@@ -1,4 +1,30 @@
 # Standup
+
+### 4/27/2020
+- Successfully finished back end database functions. Data storage now uses information of the currently logged in user to access appropriate documents in MongoDB
+- No blockers
+
+### 4/24/2020
+- Implemented verification of tokens on back end. Working profiles will allow us to remove hard coded credentials and finish implementing database functions using the information of the logged in user.
+- No blockers
+
+### 4/22/2020
+- Successfully implemented front end login tokens. App will redirect back to login page if token is absent. Backend still in progress
+- No blockers
+
+### 4/20/2020
+- Schemas for User and Restaurant created, and finished first "draft" backend functions by hard-coding credentials. MongoDB storage successful.
+- No blockers
+
+### 4/17/2020
+- MongoDB atlas account created, still need to finish implementing backend functions and route handlers. but are currenly in progress
+- No blockers
+
+### 4/15/2020
+- Began planning sprint 3, and how we will implement MongoDB for storing data for preferences and meal history.
+- Jobs have divided and assigned
+- No blockers
+
 ### 4/13/2020
 - Search preferences and regular search are done, profile will be done by the end of the sprint.
 - Tests for the former two are up and functional, with the third test being done as profile is merged.

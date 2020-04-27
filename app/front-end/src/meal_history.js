@@ -1,9 +1,9 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState, useReducer } from 'react';
 import './meal_history.css';
 import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 const Meal_History = (props) =>{
-
     const history = useHistory();
     const token = localStorage.getItem('jwtToken');
     console.log(token, " token is here");
@@ -11,6 +11,44 @@ const Meal_History = (props) =>{
     if (!token){
         history.push('/login');
     }
+  
+    const [sampleRestaurants, setSampleRestaurants] = useState([{}]);
+    useEffect (() =>{
+        axios.get('./meal_history')
+        .then(res =>{
+            console.log(res);
+            const parsed = res.data;
+            console.log(parsed);
+            const resRests = parsed.map(r =>{
+                let tempDate = r.dateMonth.toString() + "/" + r.dateDay.toString() + "/" + r.dateYear.toString();
+                return{
+                    id: 0,
+                    name: r.name,
+                    address: r.location,
+                    date: tempDate
+                }
+            })
+            console.log(resRests);
+          //  const sampleRestaurants = [];
+         //   sampleRestaurants.push(resRests);
+            setSampleRestaurants(resRests);
+            console.log(sampleRestaurants);
+        })
+        //return sampleRestaurants;
+    }, []);
+    /** 
+    componentDidMount() {
+        
+    }
+    axios.get('./meal_history')
+    .then(res =>{
+        const parsed = res.data.restaurants;
+        const resRests = parsed.map(r =>{
+            return 
+        })
+    })
+    */
+ /** 
     const sampleRestaurants = [
         {   id: 1,
             date: '3/20/20',
@@ -23,6 +61,7 @@ const Meal_History = (props) =>{
             address: '27 Essex St A'
         }
     ];
+*/
         return(
             <div id="parent">
             <h1 className="meal_h">Meal History</h1>
@@ -49,7 +88,9 @@ const Meal_History = (props) =>{
                         <div className="dateTR">{item.date}</div>
 						<div className="restNameList">{item.name}</div>
 						{item.address}<br />
-                        <Link to = "/meal_history/delete"><a>Delete Entry</a></Link>
+                        <form action="/meal_history" method="post">
+                        <button name={item.id} type="submit" value={item.id} className="option_button">Delete Entry</button>
+                        </form>
 					</div>
 				))}
 			</div>
