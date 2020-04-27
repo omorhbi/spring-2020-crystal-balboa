@@ -79,7 +79,7 @@ const LocationShow = (props) => {
     }
 
     const changeSearch = (event) => {
-        setPrefs(!checkPrefs)
+        setPrefs(!checkPrefs);
     }
 
 	return(
