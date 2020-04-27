@@ -68,7 +68,7 @@ app.post('/signup', async (req, res) => {
 		name: req.body.firstname,
 		username: username,
 		password: hashedPass,
-		zipCode: req.body.zip,
+		zipCode: req.body.zipCode,
 		history: [],
 		preferences: {
 			price: [1,2,3,4],
@@ -288,9 +288,8 @@ app.post('/profile', authorized(), async (req, res) => {
     });
 });
 
-app.get('/meal_history', (req, res)=>{
-	let id = "5ea635a502020a767cd242a7";
-	User.findById(id, function(err, User){
+app.get('/meal_history', authorized(), (req, res)=>{
+	User.findOne({username: req.user.username}, function(err, User){
 		if (err){
 			throw err;
 		}
@@ -299,19 +298,24 @@ app.get('/meal_history', (req, res)=>{
 		}
 	})
 });
-/** 
-app.post('/meal_history', (req, res)=>{
-	let id = "5ea635a502020a767cd242a7";
-	User.findById(id, function(err, User){
-		if(err){
-			throw err;
-		}
-		else{
-			console.log(req.body);
-		}
-	})
+ 
+app.post('/meal_history', authorized(), (req, res)=>{
+	if(req.body.id){
+		User.findOneAndUpdate({username: req.user.username}, {$pull: {"history" : {id: req.body.id}}}, {safe: true, upsert: true},
+		function(err, node){
+			if(err){
+				throw err;
+			}
+			else{
+				console.log('deleted.');
+			}
+		})
+	}
+	else{
+
+	}
 })
-*/
+
 
 // export the express app we created to make it available to other modules
 module.exports = app;
