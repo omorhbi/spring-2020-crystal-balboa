@@ -301,6 +301,20 @@ app.get('/meal_history', (req, res)=>{
 		}
 	})
 });
+
+app.post('/preferences', authorized(), (req,res) => {
+	const userN = req.user.username;
+	const query = {username : userN};
+	const update = {preferences : {
+		price : req.body.resObject.prices,
+		type : req.body.resObject.cuisines
+	}}
+	User.findOneAndUpdate(query, update, () => {
+		res.json({success : 'okay'});
+	})
+
+});
+
 /** 
 app.post('/meal_history', (req, res)=>{
 	let id = "5ea635a502020a767cd242a7";

@@ -56,7 +56,7 @@ const Preferences = (props) => {
         //console.log(resObject);
         axios.post('./preferences', { resObject })
             .then(res => {
-                console.log("success");
+                history.push('/profile');
             })
             .catch(err =>{
                 console.log("Error with posting");
