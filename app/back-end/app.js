@@ -183,6 +183,30 @@ app.post('/profile', (req, res) => {
     });
 });
 
+app.get('/meal_history', (req, res)=>{
+	let id = "5ea635a502020a767cd242a7";
+	User.findById(id, function(err, User){
+		if (err){
+			throw err;
+		}
+		else{
+			res.json(User.history);
+		}
+	})
+});
+/** 
+app.post('/meal_history', (req, res)=>{
+	let id = "5ea635a502020a767cd242a7";
+	User.findById(id, function(err, User){
+		if(err){
+			throw err;
+		}
+		else{
+			console.log(req.body);
+		}
+	})
+})
+*/
 
 // export the express app we created to make it available to other modules
 module.exports = app;

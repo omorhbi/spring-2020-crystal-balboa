@@ -10,16 +10,15 @@ const Login_and_Signup = () => {
         <div id= "login_component">
             <h1 className="header_login">Have an account?</h1>
             <p className="p_login">Log in and get access to the best restaurants for YOUR needs.</p>
-            <form id="this_form">
+            <form id="this_form" method="post" action="/login_and_signup">
             <label>Username: </label>
             <input type="text" ></input><br></br><br></br>
             <label>Password:   </label>
             <input type="text" ></input><br></br><br></br>
-            </form>
             <div id="buttons">
-            <a href="/profile" className="anchor"><button id="login-button">Submit (mimics successful login)</button></a><br></br><br></br>
-            <a href="/mistake" className="anchor"><button id="error-button">Mimics error in login</button></a>
+            <button id="login-button" type="submit" formMethod="post">Submit</button><br></br><br></br>
             </div>
+            </form>
         </div>
         <div id = "signup_component">
             <h1 className="header_login">New to Supperwhere?</h1>

@@ -2,7 +2,6 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 
-
 const Restaurant = new mongoose.Schema({
     name: String,
     location: String,
@@ -12,7 +11,8 @@ const Restaurant = new mongoose.Schema({
     date: Number,
     dateMonth: Number,
     dateDay: Number,
-    dateYear: Number
+    dateYear: Number,
+    thumbnail: String
 });
 
 const User = new mongoose.Schema({
@@ -21,10 +21,7 @@ const User = new mongoose.Schema({
     password: String,
     zipCode: Number,
     history: [Restaurant],
-    preferences: {
-        price: [Number], 
-        type: [String]
-    }
+    preferences: Object
 });
 
 mongoose.model('User', User);
