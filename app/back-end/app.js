@@ -19,21 +19,34 @@ const jwt = require('jsonwebtoken');
 app.use(bodyParser.json());  // decode JSON-formatted incoming POST data
 app.use(bodyParser.urlencoded({extended: true})); // decode url-encoded incoming POST data
 
-function authorized(req, res, next){
-	const token = req.header('auth-token');
-	if (!token){
-		console.log("Access denied!");
-		res.redirect('/login');
-	}
-	try {
-		const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-		req.user = verified;
-		next();
-	}
-	catch (err){
-		console.log("invalid token here.");
+function authorized(){
+	return function(req, res, next){
+		const token = req.header('auth-token');
+		console.log(token);
+		if (!token){
+			console.log("Access denied!");
+			return res.redirect('/login');
+		}
+		try {
+			const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+			req.user = verified;
+			next();
+		}
+		catch (err){
+			console.log("invalid token here.");
+		}
 	}
 }
+
+/*app.get('/login_and_signup', (req, res) => {
+	res.status(200).send("redirected");
+});
+
+app.get('/profile', (req, res) => {
+
+	return res.redirect('/login_and_signup');
+	
+});*/
 
 app.post('/signup', async (req, res) => {
 	const username = req.body.username;
@@ -125,10 +138,10 @@ app.post('/login_and_signup', async (req,res) => {
 
 
 // post request to show search results
-app.post('/location/show', authorized(), (req, res) => {
+app.post('/location/show', (req, res) => {
 	//const token = res.header('auth-token');
 	//console.log(token);
-	console.log()	
+	//console.log()	
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
 	if (locName === ''){
@@ -170,7 +183,7 @@ app.post('/location/show', authorized(), (req, res) => {
     });
 });
 
-app.post('/location/prefshow', authorized(), (req, res) => {
+app.post('/location/prefshow', (req, res) => {
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
 	const priceRange = [1,2,3,4];
@@ -249,7 +262,7 @@ app.post('/location/prefshow', authorized(), (req, res) => {
 });
 
 
-app.post('/profile', authorized(), (req, res) => {
+app.post('/profile', (req, res) => {
 
 	zomatoClient.locations({
 		query: "New York City",
