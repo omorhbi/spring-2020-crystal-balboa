@@ -25,7 +25,7 @@ const Signup = () => {
     }
 
     const handleZipChange = (event) => {
-        setZip(parseInt(event.target.value, 10));
+        setZip(event.target.value);
     }
 
     const handleSubmit = (event) => {
