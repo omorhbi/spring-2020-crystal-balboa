@@ -3,6 +3,7 @@ import './delete_history.css';
 import { Link } from 'react-router-dom';
 
 const Delete_History = (props) =>{
+
     const sampleRestaurants = [
         {   id: 1,
             date: '3/20/20',

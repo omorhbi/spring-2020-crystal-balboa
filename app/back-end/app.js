@@ -1,5 +1,6 @@
 // import and instantiate express
 const express = require('express'); // CommonJS import style!
+require('dotenv').config();
 const app = express(); // instantiate an Express object
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -10,14 +11,116 @@ require('./db');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Restaurant = mongoose.model('Restaurant');
+const { registerValidation, loginValidation } = require('./validation');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // use the bodyparser middleware to parse any data included in a request
 app.use(bodyParser.json());  // decode JSON-formatted incoming POST data
 app.use(bodyParser.urlencoded({extended: true})); // decode url-encoded incoming POST data
+app.use(express.json()); // allow express to use json that arrives from the body
+
+function authorized(){
+	return function(req, res, next){
+		const authHeader = req.headers['authorization'];
+		const token = authHeader && authHeader.split(' ')[1];
+		//const token = req.header('auth-token');
+		//console.log(token);
+		if (!token){
+			console.log("Access denied!");
+			return res.json({mistake: 'unauthorized'});
+		}
+		jwt.verify(token, process.env.TOKEN_SECRET, (err, user) =>{
+			if (err){
+				return res.json({mistake: 'not valid token'})
+			}
+			//console.log(user);
+			req.user = user.user;
+			//console.log(req.user.name);
+			console.log('valid token');
+			next(); 
+		});
+	}
+}
+
+app.post('/signup', async (req, res) => {
+	const username = req.body.username;
+	const upMyO = {username: username, password: req.body.password};
+	const error = registerValidation(upMyO);
+	//console.log(error);
+	if (error.error) {
+		console.log("validation error");
+		console.log(error.error);
+		return res.json({mistake: "error"});
+		//return res.send(error);
+	}
+	const userFound = await User.findOne({username: username});
+	if (userFound){
+		console.log('username already exists');
+		return res.json({mistake: "error"});
+	}
+
+	// hash passwords
+	const salt = await bcrypt.genSalt(10);
+	const hashedPass = await bcrypt.hash(req.body.password, salt);
+
+	const user = new User({
+		name: req.body.firstname,
+		username: username,
+		password: hashedPass,
+		zipCode: req.body.zip,
+		history: [],
+		preferences: {
+			price: [1,2,3,4],
+			type: []
+		}
+	});
+	
+	user.save((err) =>{
+		if (err){
+			console.log(err + "user died");
+
+		}
+		else {
+			console.log(user + "user added");
+			const token = jwt.sign({user}, process.env.TOKEN_SECRET, {
+			expiresIn: "1d"
+			});
+			console.log(token, " this is the token");
+			res.json({ token: token});
+		}
+	});
+});
+
+app.post('/login', async (req,res) => {
+	const username = req.body.username;
+	const upMyO = {username: username, password: req.body.password};
+	const error = registerValidation(upMyO);
+	if (error.error) {
+		console.log("validation error");
+		console.log(error.error);
+		return res.json({ mistake: "Error"});
+	}
+
+	const user = await User.findOne({username: req.body.username});
+	if (!user){
+		return console.log('user is not found');
+	}
+	const validPassword = await bcrypt.compare(req.body.password, user.password);
+	if (!validPassword){
+		return console.log('Invalid Password');
+	}
+	// create a token for the user
+	const token = jwt.sign({user}, process.env.TOKEN_SECRET, {
+		expiresIn: "1d"
+	});
+	console.log("Logged in!", req.headers);
+	return res.json({ token: token });	
+});
 
 
 // post request to show search results
-app.post('/location/show', (req, res) => {	
+app.post('/location/show', (req, res) => {
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
 	if (locName === ''){
@@ -59,7 +162,7 @@ app.post('/location/show', (req, res) => {
     });
 });
 
-app.post('/location/prefshow', (req, res) => {
+app.post('/location/prefshow', authorized(), (req, res) => {
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
 	const priceRange = [1,2,3,4];
@@ -137,7 +240,9 @@ app.post('/location/prefshow', (req, res) => {
     });
 });
 
-app.post('/profile', (req, res) => {
+
+app.post('/profile', authorized(), async (req, res) => {
+
 
 	zomatoClient.locations({
 		query: "New York City",

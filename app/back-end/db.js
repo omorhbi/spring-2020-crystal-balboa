@@ -16,10 +16,23 @@ const Restaurant = new mongoose.Schema({
 });
 
 const User = new mongoose.Schema({
-    name: String,
-    username: String,
-    password: String,
-    zipCode: Number,
+    username: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true,
+        min: 6
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    zipCode: {
+        type: Number,
+        required: true
+    },
     history: [Restaurant],
     preferences: Object
 });

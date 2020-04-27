@@ -1,9 +1,17 @@
 import React, { Component, useEffect, useState, useReducer } from 'react';
 import './meal_history.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const Meal_History = (props) =>{
+    const history = useHistory();
+    const token = localStorage.getItem('jwtToken');
+    console.log(token, " token is here");
+
+    if (!token){
+        history.push('/login');
+    }
+  
     const [sampleRestaurants, setSampleRestaurants] = useState([{}]);
     useEffect (() =>{
         axios.get('./meal_history')
@@ -23,12 +31,10 @@ const Meal_History = (props) =>{
             console.log(resRests);
           //  const sampleRestaurants = [];
          //   sampleRestaurants.push(resRests);
-                 setSampleRestaurants(resRests);
-                 console.log(sampleRestaurants);
+            setSampleRestaurants(resRests);
+            console.log(sampleRestaurants);
         })
-
         //return sampleRestaurants;
-
     }, []);
     /** 
     componentDidMount() {
