@@ -25,6 +25,7 @@ const User = new mongoose.Schema({
         required: true,
         min: 6
     },
+    name: String,
     zipCode: Number,
     history: [Restaurant],
     preferences: Object

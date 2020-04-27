@@ -25,7 +25,7 @@ function authorized(){
 		console.log(token);
 		if (!token){
 			console.log("Access denied!");
-			return res.redirect('/login');
+			return res.redirect('/mistake');
 		}
 		try {
 			const verified = jwt.verify(token, process.env.TOKEN_SECRET);
@@ -38,32 +38,21 @@ function authorized(){
 	}
 }
 
-/*app.get('/login_and_signup', (req, res) => {
-	res.status(200).send("redirected");
-});
-
-app.get('/profile', (req, res) => {
-
-	return res.redirect('/login_and_signup');
-	
-});*/
-
 app.post('/signup', async (req, res) => {
 	const username = req.body.username;
-	//console.log(username);
-	//console.log("hey");
 	const upMyO = {username: username, password: req.body.password};
 	const error = registerValidation(upMyO);
 	//console.log(error);
 	if (error.error) {
 		console.log("validation error");
 		console.log(error.error);
-		return res.redirect('/mistake');
+		return res.json({mistake: "error"});
 		//return res.send(error);
 	}
 	const userFound = await User.findOne({username: username});
 	if (userFound){
-		return console.log('username already exists');
+		console.log('username already exists');
+		return res.json({mistake: "error"});
 	}
 
 	// hash passwords
@@ -92,30 +81,20 @@ app.post('/signup', async (req, res) => {
 			const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
 			expiresIn: "1d"
 			});
-			res.header('auth-token', token);
 			console.log(token, " this is the token");
-			res.redirect('/profile');
-			//res.send(user);
+			res.json({ token: token});
 		}
 	});
-	//console.log(user);
-	//res.redirect('/profile');
-
 });
 
-app.post('/login_and_signup', async (req,res) => {
-
+app.post('/login', async (req,res) => {
 	const username = req.body.username;
-	//console.log(username);
-	//console.log("hey");
 	const upMyO = {username: username, password: req.body.password};
 	const error = registerValidation(upMyO);
-	//console.log(error);
 	if (error.error) {
 		console.log("validation error");
 		console.log(error.error);
-		return res.redirect('/mistake');
-		//return res.send(error);
+		return res.json({ mistake: "Error"});
 	}
 
 	const user = await User.findOne({username: req.body.username});
@@ -130,18 +109,13 @@ app.post('/login_and_signup', async (req,res) => {
 	const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
 		expiresIn: "1d"
 	});
-	res.header('auth-token', token);
-
-	console.log("Logged in!");
-	res.redirect('/profile');
+	console.log("Logged in!", req.headers);
+	return res.json({ token: token});	
 });
 
 
 // post request to show search results
 app.post('/location/show', (req, res) => {
-	//const token = res.header('auth-token');
-	//console.log(token);
-	//console.log()	
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
 	if (locName === ''){
@@ -263,7 +237,6 @@ app.post('/location/prefshow', (req, res) => {
 
 
 app.post('/profile', (req, res) => {
-
 	zomatoClient.locations({
 		query: "New York City",
 		count: 1
