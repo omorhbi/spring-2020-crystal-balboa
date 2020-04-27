@@ -25,7 +25,7 @@ function authorized(){
 		const authHeader = req.headers['authorization'];
 		const token = authHeader && authHeader.split(' ')[1];
 		//const token = req.header('auth-token');
-		console.log(token);
+		//console.log(token);
 		if (!token){
 			console.log("Access denied!");
 			return res.json({mistake: 'unauthorized'});
@@ -34,18 +34,12 @@ function authorized(){
 			if (err){
 				return res.json({mistake: 'not valid token'})
 			}
-			req.user = user;
+			//console.log(user);
+			req.user = user.user;
+			//console.log(req.user.name);
 			console.log('valid token');
 			next(); 
 		});
-		/*try {
-			const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-			req.user = verified;
-			next();
-		}
-		catch (err){
-			console.log("invalid token here.");
-		}*/
 	}
 }
 
@@ -89,7 +83,7 @@ app.post('/signup', async (req, res) => {
 		}
 		else {
 			console.log(user + "user added");
-			const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
+			const token = jwt.sign({user}, process.env.TOKEN_SECRET, {
 			expiresIn: "1d"
 			});
 			console.log(token, " this is the token");
@@ -117,7 +111,7 @@ app.post('/login', async (req,res) => {
 		return console.log('Invalid Password');
 	}
 	// create a token for the user
-	const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
+	const token = jwt.sign({user}, process.env.TOKEN_SECRET, {
 		expiresIn: "1d"
 	});
 	console.log("Logged in!", req.headers);
@@ -168,7 +162,7 @@ app.post('/location/show', (req, res) => {
     });
 });
 
-app.post('/location/prefshow', (req, res) => {
+app.post('/location/prefshow', authorized(), (req, res) => {
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
 	const priceRange = [1,2,3,4];
@@ -247,7 +241,9 @@ app.post('/location/prefshow', (req, res) => {
 });
 
 
-app.post('/profile', authorized(), (req, res) => {
+app.post('/profile', authorized(), async (req, res) => {
+
+
 	zomatoClient.locations({
 		query: "New York City",
 		count: 1
