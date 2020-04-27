@@ -1,9 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'; 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
 import './preferences.css';
 
 const Preferences = (props) => {
+
+    const history = useHistory();
+    const token = localStorage.getItem('jwtToken');
+    console.log(token, " token is here");
+
+    if (!token){
+        history.push('/login');
+    }
+
     const [prices, setPrices] = useState([]);
     const [cuisines, setCuisines] = useState([]);
     const [one, setOne] = useState(false);

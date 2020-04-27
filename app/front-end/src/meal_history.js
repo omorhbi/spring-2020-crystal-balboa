@@ -1,8 +1,16 @@
 import React, { Component, useEffect } from 'react';
 import './meal_history.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Meal_History = (props) =>{
+
+    const history = useHistory();
+    const token = localStorage.getItem('jwtToken');
+    console.log(token, " token is here");
+
+    if (!token){
+        history.push('/login');
+    }
     const sampleRestaurants = [
         {   id: 1,
             date: '3/20/20',

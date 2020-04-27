@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './signup.css';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'; 
+import setAuthorizationToken from './authorization';
 document.body.id = "signup";
 
 const Signup = () => {
@@ -39,6 +40,7 @@ const Signup = () => {
                     const token = res.data.token;
                     console.log(token);
                     localStorage.setItem('jwtToken', token);
+                    setAuthorizationToken(token);
                     history.push('/profile');
                 }
             })

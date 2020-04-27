@@ -3,6 +3,7 @@ import './login.css';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'; 
 import Background from './images/supperwhere_login.png';
+import setAuthorizationToken from './authorization';
 document.body.id = 'login_page';
 
 const Login_and_Signup = () => {
@@ -30,6 +31,7 @@ const Login_and_Signup = () => {
                     const token = res.data.token;
                     console.log(token);
                     localStorage.setItem('jwtToken', token);
+                    setAuthorizationToken(token);
                     history.push('/profile');
                 }
             })

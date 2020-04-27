@@ -1,9 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'; 
 import './LocationShow.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const LocationShow = (props) => {
+    const history = useHistory();
+    const token = localStorage.getItem('jwtToken');
+    console.log(token, " token is here");
+
+    if (!token){
+        history.push('/login');
+    }
 	const [restaurants, setRestaurants] = useState([]);
     const [nameSearch, setNameSearch] = useState("");
     const [locationSearch, setLocationSearch] = useState("");

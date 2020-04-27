@@ -18,23 +18,34 @@ const jwt = require('jsonwebtoken');
 // use the bodyparser middleware to parse any data included in a request
 app.use(bodyParser.json());  // decode JSON-formatted incoming POST data
 app.use(bodyParser.urlencoded({extended: true})); // decode url-encoded incoming POST data
+app.use(express.json()); // allow express to use json that arrives from the body
 
 function authorized(){
 	return function(req, res, next){
-		const token = req.header('auth-token');
+		const authHeader = req.headers['authorization'];
+		const token = authHeader && authHeader.split(' ')[1];
+		//const token = req.header('auth-token');
 		console.log(token);
 		if (!token){
 			console.log("Access denied!");
-			return res.redirect('/mistake');
+			return res.json({mistake: 'unauthorized'});
 		}
-		try {
+		jwt.verify(token, process.env.TOKEN_SECRET, (err, user) =>{
+			if (err){
+				return res.json({mistake: 'not valid token'})
+			}
+			req.user = user;
+			console.log('valid token');
+			next(); 
+		});
+		/*try {
 			const verified = jwt.verify(token, process.env.TOKEN_SECRET);
 			req.user = verified;
 			next();
 		}
 		catch (err){
 			console.log("invalid token here.");
-		}
+		}*/
 	}
 }
 
@@ -110,7 +121,7 @@ app.post('/login', async (req,res) => {
 		expiresIn: "1d"
 	});
 	console.log("Logged in!", req.headers);
-	return res.json({ token: token});	
+	return res.json({ token: token });	
 });
 
 
@@ -236,7 +247,7 @@ app.post('/location/prefshow', (req, res) => {
 });
 
 
-app.post('/profile', (req, res) => {
+app.post('/profile', authorized(), (req, res) => {
 	zomatoClient.locations({
 		query: "New York City",
 		count: 1

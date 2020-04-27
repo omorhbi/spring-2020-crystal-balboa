@@ -1,11 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'; 
 import './searchShow.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 //import SearchPreferences from './searchPreferences.js';
 // import Preferences from './preferences'; // what props will be based off
 
 const SearchShow = (props) => { // props will come from the state variables in preferences.js
+
+    const history = useHistory();
+    const token = localStorage.getItem('jwtToken');
+    console.log(token, " token is here");
+
+    if (!token){
+        history.push('/login');
+    }
 	const [restaurants, setRestaurants] = useState([]);
     
     // hard coded preferences but will act differently once preferences are saved

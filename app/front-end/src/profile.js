@@ -1,13 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './profile.css';
 
 const Profile = (props) => {
+    const history = useHistory();
+    const token = localStorage.getItem('jwtToken');
+    console.log(token, " token is here");
+
+    if (!token){
+        history.push('/login');
+    }
 	const [restaurants, setRestaurants] = useState([]);
 	const [preferences, setPreferences] = useState(["American",
                                                     "Desserts",
-													"Tex-Mex",
+													"Italian",
 													"Chinese",
                                                     "Bagels",
                                                     "New American"]);
