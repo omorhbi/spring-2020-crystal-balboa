@@ -31,7 +31,7 @@ const User = new mongoose.Schema({
         required: true
     },
     zipCode: {
-        type: Number,
+        type: String,
         required: true
     },
     history: [Restaurant],

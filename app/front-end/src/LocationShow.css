@@ -117,6 +117,17 @@ body {
 	margin-right: 5px;
 }
 
+.addMeal{
+	color: blue;
+	text-decoration: underline;
+}
+
+.addMeal:active{
+	color: purple;
+	text-decoration: underline;
+}
+
+
 @media only screen and (max-width: 585px){
 
 	.locRestList{

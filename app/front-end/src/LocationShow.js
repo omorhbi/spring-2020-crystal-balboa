@@ -33,6 +33,7 @@ const LocationShow = (props) => {
             };
             axios.post('./show', { resObject })
                 .then(res => {
+                    let idx = 0;
                     const parsed = res.data.restaurants;
                     const resRests = parsed.map(r => {
                         let addLine = r.location.substr(0,r.location.indexOf(','));
@@ -41,12 +42,17 @@ const LocationShow = (props) => {
                             addLine = stateLine;
                             stateLine = ""; 
                         }
+                        let price = "";
+                        for(let i=0; i<r.price; i++){
+                            price += "$";
+                        }
                         return {
-                            restaurant_name: r.name,
+                            restaurant_name: r.name + " (" + price + ")",
                             address: addLine,
                             city: stateLine,
                             cuisine: r.cuisine,
-                            thumb: r.thumbnail
+                            thumb: r.thumbnail,
+                            idx: idx++
                         }                    
                     });
                     setRestaurants(resRests);
@@ -65,15 +71,21 @@ const LocationShow = (props) => {
             axios.post('./prefshow', { resObject })
                 .then(res => {
                     //console.log(res.data);
+                    let idx = 0;
                     const parsed = res.data.restaurants;
                     //console.log(parsed);
                     const resRests = parsed.map(r => {
+                        let price = "";
+                        for(let i=0; i<r.price; i++){
+                            price += "$";
+                        }
                         return {
-                            restaurant_name: r.restaurant_name,
+                            restaurant_name: r.restaurant_name  + " (" + price + ")",
                             address: r.address,
                             city: r.city,
                             cuisine: r.cuisine,
-                            thumb: r.thumbnail
+                            thumb: r.thumbnail,
+                            idx: idx++
                         }                    
                     });
                     setRestaurants(resRests);
@@ -87,6 +99,19 @@ const LocationShow = (props) => {
 
     const changeSearch = (event) => {
         setPrefs(!checkPrefs);
+    }
+
+    const handleMeal = (event) => {
+        const ind = parseInt(event.target.name, 10);
+        const restObj = restaurants[ind];
+        console.log(restObj);
+        axios.post('./meal_history', restObj)
+            .then(res => {
+                history.push('/meal_history');
+            })
+            .catch(err =>{
+                console.log("POST error");
+            })
     }
 
 	return(
@@ -112,7 +137,7 @@ const LocationShow = (props) => {
                         <div className="cuisineName">{item.cuisine} Cuisine</div>
 						{item.address}<br />
 						{item.city}<br />
-                        <Link to = "/meal_history"><a>Add to Meal History</a></Link>
+                        <a name={`${item.idx}`} onClick={handleMeal} className="addMeal">Add to Meal History</a>
 					</div>
 				))}
 			</div>

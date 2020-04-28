@@ -104,11 +104,13 @@ app.post('/login', async (req,res) => {
 
 	const user = await User.findOne({username: req.body.username});
 	if (!user){
-		return console.log('user is not found');
+		console.log('user is not found');
+		return res.json({ mistake: "Error"});
 	}
 	const validPassword = await bcrypt.compare(req.body.password, user.password);
 	if (!validPassword){
-		return console.log('Invalid Password');
+		console.log('Invalid Password');
+		return res.json({ mistake: "Error"});
 	}
 	// create a token for the user
 	const token = jwt.sign({user}, process.env.TOKEN_SECRET, {
@@ -162,11 +164,19 @@ app.post('/location/show', (req, res) => {
     });
 });
 
-app.post('/location/prefshow', authorized(), (req, res) => {
+app.post('/location/prefshow', authorized(), async (req, res) => {
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
-	const priceRange = [1,2,3,4];
-	const preferences = ["American", "Desserts", "Chinese"];
+	const currUser = await User.findOne({username: req.user.username});
+	let priceRange = currUser.preferences.price;
+	let preferences = currUser.preferences.type;
+	console.log(priceRange, preferences);
+	if(priceRange.length === 0){
+		priceRange = [1,2,3,4];
+	}
+	if(preferences.length === 0){
+		preferences = ["American", "Chinese", "French", "Greek", "Indian", "Japanese", "Korean", "Mexican"];
+	}
 
 	if (locName === ''){
 		locName = "New York City";
@@ -225,7 +235,8 @@ app.post('/location/prefshow', authorized(), (req, res) => {
                 	address: address,
                 	city: state,
                 	cuisine: res.cuisine,
-                	thumbnail: res.thumbnail
+                	thumbnail: res.thumbnail,
+                	price: res.price
                 }
             });
             console.log(restaurants);
@@ -311,6 +322,20 @@ app.post('/meal_history_delete', authorized(), (req, res)=>{
 				}
 			})
 	}
+
+app.post('/preferences', authorized(), (req,res) => {
+	const userN = req.user.username;
+	const query = {username : userN};
+	const update = {preferences : {
+		price : req.body.resObject.prices,
+		type : req.body.resObject.cuisines
+	}}
+	User.findOneAndUpdate(query, update, () => {
+		res.json({success : 'okay'});
+	})
+
+});
+
 })
 
 
