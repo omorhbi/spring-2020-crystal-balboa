@@ -283,11 +283,7 @@ app.post('/profile', authorized(), async (req, res) => {
 			// these two lists are temporary so they only serve as a model for how
 			// these lists will be used when it comes from a database during the next sprint
 			const savedRestaurants = currUser.history;
-			console.log(savedRestaurants);
-			const restaurants1 = resData.restaurants;
-			console.log(restaurants1);
-			console.log(resData.restaurants.price + " name");
-			
+
 			let filteredRes;
 			if (savedRestaurants.length === 0){
 				filteredRes = resData.restaurants.filter(restaurant =>
@@ -301,7 +297,7 @@ app.post('/profile', authorized(), async (req, res) => {
 		    		(!savedRestaurants.includes(restaurant.name)) && preferences.some(res =>
 		    			restaurant.cuisines.split(', ').includes(res)) && priceRange.includes(restaurant.price_range));
 			}
-			console.log(filteredRes);
+			// console.log(filteredRes);
 			let restaurants = filteredRes.map(r => {
 					return {
 						name: r.name,
@@ -325,7 +321,7 @@ app.post('/profile', authorized(), async (req, res) => {
     });
 });
 
-/*app.get('/meal_history', (req, res)=>{
+app.get('/meal_history', (req, res)=>{
 	let id = "5ea635a502020a767cd242a7";
 	User.findById(id, function(err, user){
 		if (err){
@@ -335,7 +331,7 @@ app.post('/profile', authorized(), async (req, res) => {
 			res.json(user.history);
 		}
 	})
-});*/
+});
 
 app.post('/preferences', authorized(), (req,res) => {
 	const userN = req.user.username;
