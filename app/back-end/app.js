@@ -68,7 +68,7 @@ app.post('/signup', async (req, res) => {
 		name: req.body.firstname,
 		username: username,
 		password: hashedPass,
-		zipCode: req.body.zipCode,
+		location: req.body.location,
 		history: [],
 		preferences: {
 			price: [1,2,3,4],
@@ -254,9 +254,21 @@ app.post('/location/prefshow', authorized(), async (req, res) => {
 
 app.post('/profile', authorized(), async (req, res) => {
 
+	const currUser = await User.findOne({username: req.user.username});
+	let priceRange = currUser.preferences.price;
+	let preferences = currUser.preferences.type;
+	console.log(priceRange, preferences);
+	console.log(currUser.location);
+	//const location = 
+	if(priceRange.length === 0){
+		priceRange = [1,2,3,4];
+	}
+	if(preferences.length === 0){
+		preferences = ["American", "Chinese", "French", "Greek", "Indian", "Japanese", "Korean", "Mexican"];
+	}
 
 	zomatoClient.locations({
-		query: "New York City",
+		query: currUser.location,
 		count: 1
 	})
 	.then(function(data){
@@ -265,19 +277,32 @@ app.post('/profile', authorized(), async (req, res) => {
 		zomatoClient.search({
 			entity_id: entity_id,
 			entity_type: entity_type,
-			count: 3
+			count: 20
 		})
 		.then(function(resData){
 			// these two lists are temporary so they only serve as a model for how
 			// these lists will be used when it comes from a database during the next sprint
-			const savedRestaurants = ["Joe's Shanghai", "Xi'an Famous Foods"]
-			const savedPreferences = ["Chinese", "American", "Italian", "Desserts", "New American", "Bagels"]
+			const savedRestaurants = currUser.history;
+			console.log(savedRestaurants);
+			const restaurants1 = resData.restaurants;
+			console.log(restaurants1);
+			console.log(resData.restaurants.price + " name");
 			
-			const filteredRes = resData.restaurants.filter(restaurant =>
-		    	(!savedRestaurants.includes(restaurant.name)) && savedPreferences.some(res =>
-		    		restaurant.cuisines.split(', ').includes(res)));
-			
-			const restaurants = filteredRes.map(r => {
+			let filteredRes;
+			if (savedRestaurants.length === 0){
+				filteredRes = resData.restaurants.filter(restaurant =>
+		    	preferences.some(res => restaurant.cuisines.split(', ').includes(res))
+		    	&& priceRange.includes(restaurant.price_range));
+
+			}
+
+			else if (savedRestaurants.length > 0){
+				filteredRes = resData.restaurants.filter(restaurant =>
+		    		(!savedRestaurants.includes(restaurant.name)) && preferences.some(res =>
+		    			restaurant.cuisines.split(', ').includes(res)) && priceRange.includes(restaurant.price_range));
+			}
+			console.log(filteredRes);
+			let restaurants = filteredRes.map(r => {
 					return {
 						name: r.name,
 						location: r.location.address,
@@ -288,7 +313,8 @@ app.post('/profile', authorized(), async (req, res) => {
 			      	}
 		    });
 
-		    res.json({ restaurants });
+			restaurants = restaurants.slice(0, 3);
+		    return res.json({restaurants, currUser});
 		})
 		.catch(function(err){
 			console.log(err)
@@ -299,17 +325,17 @@ app.post('/profile', authorized(), async (req, res) => {
     });
 });
 
-app.get('/meal_history', (req, res)=>{
+/*app.get('/meal_history', (req, res)=>{
 	let id = "5ea635a502020a767cd242a7";
-	User.findById(id, function(err, User){
+	User.findById(id, function(err, user){
 		if (err){
 			throw err;
 		}
 		else{
-			res.json(User.history);
+			res.json(user.history);
 		}
 	})
-});
+});*/
 
 app.post('/preferences', authorized(), (req,res) => {
 	const userN = req.user.username;
