@@ -322,7 +322,7 @@ app.post('/profile', authorized(), async (req, res) => {
 });
 
 app.get('/meal_history', authorized(), (req, res)=>{
-	User.findOne({username: req.user.username}, function(err, User){
+	User.findOne({username: req.user.username}, function(err, user){
 		if (err){
 			throw err;
 		}
@@ -374,7 +374,7 @@ app.post('/meal_history_delete', authorized(), (req, res)=>{
 				}
 			})
 	}
-})
+});
 
 app.post('/preferences', authorized(), (req,res) => {
 	const userN = req.user.username;
