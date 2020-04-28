@@ -164,11 +164,19 @@ app.post('/location/show', (req, res) => {
     });
 });
 
-app.post('/location/prefshow', authorized(), (req, res) => {
+app.post('/location/prefshow', authorized(), async (req, res) => {
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
-	const priceRange = [1,2,3,4];
-	const preferences = ["American", "Desserts", "Chinese"];
+	const currUser = await User.findOne({username: req.user.username});
+	let priceRange = currUser.preferences.price;
+	let preferences = currUser.preferences.type;
+	console.log(priceRange, preferences);
+	if(priceRange.length === 0){
+		priceRange = [1,2,3,4];
+	}
+	if(preferences.length === 0){
+		preferences = ["American", "Chinese", "French", "Greek", "Indian", "Japanese", "Korean", "Mexican"];
+	}
 
 	if (locName === ''){
 		locName = "New York City";
@@ -227,7 +235,8 @@ app.post('/location/prefshow', authorized(), (req, res) => {
                 	address: address,
                 	city: state,
                 	cuisine: res.cuisine,
-                	thumbnail: res.thumbnail
+                	thumbnail: res.thumbnail,
+                	price: res.price
                 }
             });
             console.log(restaurants);
