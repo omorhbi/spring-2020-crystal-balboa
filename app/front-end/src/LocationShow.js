@@ -47,12 +47,13 @@ const LocationShow = (props) => {
                             price += "$";
                         }
                         return {
-                            restaurant_name: r.name + " (" + price + ")",
+                            restaurant_name: r.name,
                             address: addLine,
                             city: stateLine,
                             cuisine: r.cuisine,
                             thumb: r.thumbnail,
-                            idx: idx++
+                            idx: idx++,
+                            price: price
                         }                    
                     });
                     setRestaurants(resRests);
@@ -80,12 +81,13 @@ const LocationShow = (props) => {
                             price += "$";
                         }
                         return {
-                            restaurant_name: r.restaurant_name  + " (" + price + ")",
+                            restaurant_name: r.restaurant_name,
                             address: r.address,
                             city: r.city,
                             cuisine: r.cuisine,
                             thumb: r.thumbnail,
-                            idx: idx++
+                            idx: idx++,
+                            price: price
                         }                    
                     });
                     setRestaurants(resRests);
@@ -105,7 +107,7 @@ const LocationShow = (props) => {
         const ind = parseInt(event.target.name, 10);
         const restObj = restaurants[ind];
         console.log(restObj);
-        axios.post('./meal_history', restObj)
+        axios.post('../meal_history', restObj)
             .then(res => {
                 history.push('/meal_history');
             })
@@ -133,7 +135,7 @@ const LocationShow = (props) => {
 					<div className="locRestCard" key={item.id}>
 						<a href={`https://www.google.com/maps/dir/?api=1&destination=${item.address}, ${item.city}`} target="_blank" className="topRightDir">Directions</a>
 						<img src={`${item.thumb}`} className="locRestCardImg"/>
-						<div className="restNameList">{item.restaurant_name}</div>
+						<div className="restNameList">{item.restaurant_name} ({item.price})</div>
                         <div className="cuisineName">{item.cuisine} Cuisine</div>
 						{item.address}<br />
 						{item.city}<br />

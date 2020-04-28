@@ -321,9 +321,8 @@ app.post('/profile', authorized(), async (req, res) => {
     });
 });
 
-app.get('/meal_history', (req, res)=>{
-	let id = "5ea635a502020a767cd242a7";
-	User.findById(id, function(err, user){
+app.get('/meal_history', authorized(), (req, res)=>{
+	User.findOne({username: req.user.username}, function(err, User){
 		if (err){
 			throw err;
 		}
@@ -332,6 +331,49 @@ app.get('/meal_history', (req, res)=>{
 		}
 	})
 });
+
+app.post('/meal_history', authorized(), (req,res)=>{
+	const rest = req.body;
+	const d = new Date();
+	const rest2 = new Restaurant({
+		id: Date.now(),
+		name: req.body.restaurant_name,
+		location: req.body.address + " " + req.body.city,
+		price: "",
+		rating: "",
+		cuisine: req.body.cuisine,
+		date: d.toLocaleDateString(),
+		dateMonth: parseInt(d.toLocaleDateString().substring(0,1)),
+		dateDay: parseInt(d.toLocaleDateString().substr(2,3)),
+    	dateYear: parseInt(d.toLocaleDateString().substr(5,6)),
+    	thumbnail: req.body.thumb
+	});
+	//console.log(rest2);
+	User.findOneAndUpdate({ username: req.user.username }, { $push: { "history": rest2 } },
+	    function(err, node){
+	    	if(err){
+	    		return res.json({err: true});
+	    	}
+	    	else{
+	    		return res.json();
+	    	}
+	    }
+	);
+})
+ 
+app.post('/meal_history_delete', authorized(), (req, res)=>{
+	if(req.body.id){
+		User.findOneAndUpdate({username: req.user.username}, {$pull: {"history" : {id: req.body.id}}}, {safe: true, upsert: true},
+			function(err, node){
+				if(err){
+					throw err;
+					return res.json();
+				}
+				else{
+					return res.json({ deleted: "Yay" });
+				}
+			})
+	}
 
 app.post('/preferences', authorized(), (req,res) => {
 	const userN = req.user.username;
@@ -346,19 +388,8 @@ app.post('/preferences', authorized(), (req,res) => {
 
 });
 
-/** 
-app.post('/meal_history', (req, res)=>{
-	let id = "5ea635a502020a767cd242a7";
-	User.findById(id, function(err, User){
-		if(err){
-			throw err;
-		}
-		else{
-			console.log(req.body);
-		}
-	})
 })
-*/
+
 
 // export the express app we created to make it available to other modules
 module.exports = app;
