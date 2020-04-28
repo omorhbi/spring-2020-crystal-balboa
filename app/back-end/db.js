@@ -9,7 +9,7 @@ const Restaurant = new mongoose.Schema({
     price: String,
     rating: String,
     cuisine: String,
-    date: Number,
+    date: String,
     dateMonth: Number,
     dateDay: Number,
     dateYear: Number,

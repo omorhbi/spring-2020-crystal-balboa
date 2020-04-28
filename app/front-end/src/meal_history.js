@@ -22,7 +22,7 @@ const Meal_History = (props) =>{
             const parsed = res.data;
             console.log(parsed);
             const resRests = parsed.map(r =>{
-                let tempDate = r.dateMonth.toString() + "/" + r.dateDay.toString() + "/" + r.dateYear.toString();
+                let tempDate = r.date; //r.dateMonth.toString() + "/" + r.dateDay.toString() + "/" + r.dateYear.toString();
                 return{
                     id: r.id,
                     name: r.name,
@@ -45,7 +45,7 @@ const Meal_History = (props) =>{
                         sampleRestaurants.splice(i, 1);
                     }
                 }
-                console.log(sampleRestaurants);
+                window.location.reload();
             })
     };
 
