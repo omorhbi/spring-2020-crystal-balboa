@@ -374,6 +374,7 @@ app.post('/meal_history_delete', authorized(), (req, res)=>{
 				}
 			})
 	}
+})
 
 app.post('/preferences', authorized(), (req,res) => {
 	const userN = req.user.username;
@@ -388,7 +389,7 @@ app.post('/preferences', authorized(), (req,res) => {
 
 });
 
-})
+
 
 
 // export the express app we created to make it available to other modules
