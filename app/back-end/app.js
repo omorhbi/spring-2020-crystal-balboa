@@ -309,6 +309,35 @@ app.get('/meal_history', authorized(), (req, res)=>{
 		}
 	})
 });
+
+app.post('/meal_history', authorized(), (req,res)=>{
+	const rest = req.body;
+	const d = new Date();
+	const rest2 = new Restaurant({
+		id: Date.now(),
+		name: req.body.restaurant_name,
+		location: req.body.address + " " + req.body.city,
+		price: "",
+		rating: "",
+		cuisine: req.body.cuisine,
+		date: d.toLocaleDateString(),
+		dateMonth: parseInt(d.toLocaleDateString().substring(0,1)),
+		dateDay: parseInt(d.toLocaleDateString().substr(2,3)),
+    	dateYear: parseInt(d.toLocaleDateString().substr(5,6)),
+    	thumbnail: req.body.thumb
+	});
+	//console.log(rest2);
+	User.findOneAndUpdate({ username: req.user.username }, { $push: { "history": rest2 } },
+	    function(err, node){
+	    	if(err){
+	    		return res.json({err: true});
+	    	}
+	    	else{
+	    		return res.json();
+	    	}
+	    }
+	);
+})
  
 app.post('/meal_history_delete', authorized(), (req, res)=>{
 	if(req.body.id){
@@ -316,6 +345,7 @@ app.post('/meal_history_delete', authorized(), (req, res)=>{
 			function(err, node){
 				if(err){
 					throw err;
+					return res.json();
 				}
 				else{
 					return res.json({ deleted: "Yay" });
