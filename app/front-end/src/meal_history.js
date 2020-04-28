@@ -14,6 +14,7 @@ const Meal_History = (props) =>{
     }
   
     const [sampleRestaurants, setSampleRestaurants] = useState([]);
+    const [value, setValue] = useState("all");
 
     useEffect (() =>{
         axios.get('./meal_history')
@@ -49,6 +50,14 @@ const Meal_History = (props) =>{
             })
     };
 
+    const handleTime = (event) => {
+        setValue(event.target.value);
+    }
+
+    const handleFilter = (event) => {
+        
+    }
+
         return(
             <div id="parent">
             <h1 className="meal_h">Meal History</h1>
@@ -56,14 +65,14 @@ const Meal_History = (props) =>{
             
             <div id="meal_table">
                 <label for="time_frames" id="time_f"> View entries from: </label>
-                <select id="time_frames" name="time_frames">
+                <select id="time_frames" name="time_frames" onChange={handleTime}>
                     <option value="all">All Time</option>
                     <option value="year">This Year</option>
                     <option value="month">Last Month</option>
                     <option value="week">Last Week</option>
                     <option value="day">Today</option>
-                    </select>
-                    <input className="option_button" type="submit"></input>
+                </select>
+                <input className="option_button" type="submit" onClick={handleFilter}></input>
             </div>
             
 
