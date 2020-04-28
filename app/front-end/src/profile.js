@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import './profile.css';
 
 const Profile = (props) => {
+    
     const history = useHistory();
     const token = localStorage.getItem('jwtToken');
     console.log(token, " token is here");
@@ -11,15 +12,12 @@ const Profile = (props) => {
     if (!token){
         history.push('/login');
     }
+    const [name, setName] = useState("");
 	const [restaurants, setRestaurants] = useState([]);
-	const [preferences, setPreferences] = useState(["American",
-                                                    "Desserts",
-													"Italian",
-													"Chinese",
-                                                    "Bagels",
-                                                    "New American"]);
+	const [preferences, setPreferences] = useState([]);
 	const [count, setCount] = useState(0);
-	const [priceRange, setPriceRange] = useState(["$, $$, $$$"])
+	const [priceRange, setPriceRange] = useState("");
+    console.log(priceRange[0] + "cheap");
 
     const [resName, setResName] = useState(["Joe's Shanghai", "Xi'an Famous Foods"]);
     const [resLoc, setResLoc] = useState("New York City");
@@ -28,11 +26,29 @@ const Profile = (props) => {
         name: resName,
         loc: resLoc
     };
-	/*const range = `${priceRange[0]} - ${priceRange[priceRange.length]}`;
-	console.log("price drange " + priceRange[0]);*/
+
     useEffect(() =>{
         axios.post('./profile', { resObject })
             .then(res => {
+                const user = res.data.currUser;
+                //console.log(JSON.stringify(user) + " here");
+
+                setName(user.name);
+                setPreferences(user.preferences.type);
+
+                let rangeLength = user.preferences.price.length;
+                const priceList = user.preferences.price.map(price => {
+                    rangeLength--;
+                    let suffix = ', ';
+                    if (rangeLength === 0){
+                        suffix = '';
+                    }
+                    return '$'.repeat(price) + suffix;
+                    
+                });
+                console.log(priceList);
+                setPriceRange(priceList);
+                
                 const parsed = res.data.restaurants;
                 const resRests = parsed.map(r => {
                     let addLine = r.location.substr(0,r.location.indexOf(','));
@@ -41,8 +57,12 @@ const Profile = (props) => {
                         addLine = stateLine;
                         stateLine = ""; 
                     }
+                    let price = "";
+                    for (let i = 0; i < r.price; i++){
+                        price += "$";
+                    }
                     return {
-                        restaurant_name: r.name,
+                        restaurant_name: r.name + " (" + price + ")",
                         address: addLine,
                         city: stateLine,
                         cuisine: r.cuisine,
@@ -55,13 +75,13 @@ const Profile = (props) => {
                 console.log("Error with posting");
                 console.log(err);
         });
-    }, []); 
 
+    }, []); 
 
     return (
     	<div className = "profile">
     		<div className = "profileTop">
-    			<h1 id = "welcomeMessage">Welcome, Leon!</h1>
+    			<h1 id = "welcomeMessage">Welcome, {name}!</h1>
     			<h2 className = "recs">Here are today's recommendations based on your preferences:</h2>
     			
     		</div>
@@ -85,7 +105,8 @@ const Profile = (props) => {
 	    		<div className = "preferencesList">
 	    			<div className = "prefCol">
 	    				<p id = "price">Your price range: </p>
-	    				<p id = "priceText">{priceRange}</p>
+                            <p id = "priceText">{priceRange}</p>
+                        
 	    			</div>
 	    			
 	    			<div className = "prefCol">

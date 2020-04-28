@@ -10,7 +10,7 @@ const Signup = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [firstname, setName] = useState("");
-    const [zipCode, setZip] = useState(10017);
+    const [location, setLocation] = useState(10017);
 
     const handleUserChange = (event) => {
         setUsername(event.target.value);
@@ -24,12 +24,12 @@ const Signup = () => {
         setName(event.target.value);
     }
 
-    const handleZipChange = (event) => {
-        setZip(event.target.value);
+    const handleLocationChange = (event) => {
+        setLocation(event.target.value);
     }
 
     const handleSubmit = (event) => {
-        const resObject = {username: username, password: password, firstname: firstname, zipCode, zipCode};
+        const resObject = {username: username, password: password, firstname: firstname, location: location};
         axios.post('./signup', resObject)
             .then(res => {
                 if(res.data.mistake){
@@ -62,7 +62,7 @@ const Signup = () => {
                 <input type="password" name="password" onChange={handlePassChange}></input><br></br>
                 <p className="signup_para">(Don't forget this! Supperwhere does not have a password retrieval system in place.)</p>
                 <label>Zip Code: </label>
-                <input type="text" required maxlength="5" name="zip" onChange={handleZipChange}></input>
+                <input type="text" name="location" onChange={handleLocationChange}></input>
                 <p className="signup_para">(You can always change this, so don't worry.)</p>
                 <br></br>
                 <div id="button">
