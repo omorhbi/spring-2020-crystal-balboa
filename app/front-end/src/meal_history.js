@@ -13,7 +13,8 @@ const Meal_History = (props) =>{
         history.push('/login');
     }
   
-    const [sampleRestaurants, setSampleRestaurants] = useState([{}]);
+    const [sampleRestaurants, setSampleRestaurants] = useState([]);
+
     useEffect (() =>{
         axios.get('./meal_history')
         .then(res =>{
@@ -30,37 +31,22 @@ const Meal_History = (props) =>{
                 }
             })
             console.log(resRests);
-          //  const sampleRestaurants = [];
-         //   sampleRestaurants.push(resRests);
             setSampleRestaurants(resRests);
             console.log(sampleRestaurants);
         })
-        //return sampleRestaurants;
     }, []);
 
-       function handleDelete(item_id) {
-        axios.post('./meal_history', {id: item_id})
-        .then(res => {
-            console.log(res);
-            const parsed = res.data;
-            console.log(parsed);
-            /** 
-            const resRests = parsed.map(r =>{
-                let tempDate = r.dateMonth.toString() + "/" + r.dateDay.toString() + "/" + r.dateYear.toString();
-                return{
-                    id: r.id,
-                    name: r.name,
-                    address: r.location,
-                    date: tempDate
+    function handleDelete(item_id) {
+        axios.post('./meal_history_delete', {id: item_id})
+            .then(res => {
+                console.log('deleted');
+                for(let i=0; i<sampleRestaurants.length; i++){
+                    if(sampleRestaurants[i].id === item_id){
+                        sampleRestaurants.splice(i, 1);
+                    }
                 }
+                console.log(sampleRestaurants);
             })
-            console.log(resRests);
-          //  const sampleRestaurants = [];
-         //   sampleRestaurants.push(resRests);
-            setSampleRestaurants(resRests);
-            console.log(sampleRestaurants);
-            */
-        })
     };
 
         return(

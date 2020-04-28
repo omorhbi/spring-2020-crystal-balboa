@@ -299,20 +299,17 @@ app.get('/meal_history', authorized(), (req, res)=>{
 	})
 });
  
-app.post('/meal_history', authorized(), (req, res)=>{
+app.post('/meal_history_delete', authorized(), (req, res)=>{
 	if(req.body.id){
 		User.findOneAndUpdate({username: req.user.username}, {$pull: {"history" : {id: req.body.id}}}, {safe: true, upsert: true},
-		function(err, node){
-			if(err){
-				throw err;
-			}
-			else{
-				console.log('deleted.');
-			}
-		})
-	}
-	else{
-
+			function(err, node){
+				if(err){
+					throw err;
+				}
+				else{
+					return res.json({ deleted: "Yay" });
+				}
+			})
 	}
 })
 
