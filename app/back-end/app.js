@@ -293,9 +293,24 @@ app.post('/profile', authorized(), async (req, res) => {
 			}
 
 			else if (savedRestaurants.length > 0){
+				console.log(savedRestaurants);
 				filteredRes = resData.restaurants.filter(restaurant =>
-		    		(!savedRestaurants.includes(restaurant.name)) && preferences.some(res =>
-		    			restaurant.cuisines.split(', ').includes(res)) && priceRange.includes(restaurant.price_range));
+		    	preferences.some(res => restaurant.cuisines.split(', ').includes(res)) 
+		    	&& priceRange.includes(restaurant.price_range));
+				
+				let newRes = [];
+				for(let i=0; i<filteredRes.length; i++){
+					let check = true;
+					for(let j=0; j<savedRestaurants.length; j++){
+						if(filteredRes[i].name === savedRestaurants[j].name){
+							check = false;
+						}
+					}
+					if(check){
+						newRes.push(filteredRes[i]);
+					}
+				}
+				filteredRes = newRes;
 			}
 			// console.log(filteredRes);
 			let restaurants = filteredRes.map(r => {
