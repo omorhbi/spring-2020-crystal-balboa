@@ -62,7 +62,7 @@ const Meal_History = (props) =>{
         let d = new Date();
         d = d.toLocaleDateString();
         console.log(d);
-        const dateData = d.slice('/');
+        const dateData = d.split('/');
         let results = [];
 
         switch (sampleFilter) {
@@ -71,7 +71,7 @@ const Meal_History = (props) =>{
                 break;
             case "This Year" :
                 for(let i = 0; i < sampleRestaurants2.length; i++){
-                    if(sampleRestaurants2[i].date.slice('/')[2] === dateData[2]){
+                    if(sampleRestaurants2[i].date.split('/')[2] === dateData[2]){
                         results.push(sampleRestaurants2[i]);
                     }
                 }
@@ -79,8 +79,8 @@ const Meal_History = (props) =>{
                 break;
             case "This Month":
                 for(let i = 0; i < sampleRestaurants2.length; i++){
-                    if(sampleRestaurants2[i].date.slice('/')[2] === dateData[2]){
-                        if(sampleRestaurants2[i].date.slice('/')[0] === dateData[0]){
+                    if(sampleRestaurants2[i].date.split('/')[2] === dateData[2]){
+                        if(sampleRestaurants2[i].date.split('/')[0] === dateData[0]){
                             results.push(sampleRestaurants2[i]);
                         }
                     }
@@ -95,11 +95,42 @@ const Meal_History = (props) =>{
                 }
                 setSampleRestaurants(results);
                 break;
+            case "This Week":
+                for(let i = 0; i < sampleRestaurants2.length; i++){
+                    if(dayDifference(d, sampleRestaurants2[i].date) <= 7){
+                        results.push(sampleRestaurants2[i]);
+                    }
+                }
+                setSampleRestaurants(results);
+                break;
         }
 
 
     }
+    function dayDifference(day1, day2){
 
+        const slice1 = day1.split('/');
+        const slice2 = day2.split('/');
+
+        const one = new Date(slice1[2], slice1[0], slice1[1]);
+        const two = new Date(slice2[2], slice2[0], slice2[1]);
+
+        console.log(slice1);
+        console.log(slice2);
+
+        console.log(one);
+        console.log(two);
+
+        const millisecondsPerDay = 1000 * 60 * 60 * 24;
+        const millisBetween = one.getTime() - two.getTime();
+        const daysBetween = Math.floor(millisBetween / millisecondsPerDay);
+    
+        console.log(one.getTime(), two.getTime())
+        console.log(millisBetween);
+        console.log(daysBetween);
+
+        return daysBetween;
+    }
 
         return(
             <div id="parent">
@@ -112,6 +143,7 @@ const Meal_History = (props) =>{
                     <option value="All Time">All Time</option>
                     <option value="This Year">This Year</option>
                     <option value="This Month">This Month</option>
+                    <option value="This Week">This Week</option>
                     <option value="Today">Today</option>
                     </select>
                     <input className="option_button" type="submit" onClick={handleFilter}></input>
