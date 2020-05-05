@@ -29,10 +29,6 @@ const App = () => {
 						<Nav />
 						<Preferences />
           			</Route>
-					<Route exact path="/location">
-						<Nav />
-						<Location />
-					</Route>
 					<Route exact path="/location/show">
 						<Nav />
 						<LocationShow />
@@ -47,22 +43,8 @@ const App = () => {
 						<Nav />
 						<Meal_History />
 					</Route>
-					<Route exact path="/meal_history/edit">
-						<Edit_History/>
-					</Route>
-					<Route exact path="/meal_history/delete">
-						<Delete_History />
-					</Route>
 					<Route exact path="/mistake">
 						<Mistake />
-					</Route>
-					<Route exact path = "/searchPreferences">
-						<Nav />
-						<SearchPreferences />
-					</Route>
-					<Route exact path = "/searchPreferences/show">
-						<Nav />
-						<SearchShow />
 					</Route>
 					<Route exact path = "/profile">
 						<Nav />

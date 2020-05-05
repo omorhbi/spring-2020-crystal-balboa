@@ -13,30 +13,32 @@ const Meal_History = (props) =>{
         history.push('/login');
     }
   
-    const [sampleFilter, setFilter] = useState('all');
+    const [sampleFilter, setFilter] = useState('All Time');
     const [sampleRestaurants, setSampleRestaurants] = useState([]);
     const [sampleRestaurants2, setSampleRestaurants2] = useState([]);
 
     useEffect (() =>{
-        axios.get('./meal_history')
-        .then(res =>{
-            console.log(res);
-            const parsed = res.data;
-            console.log(parsed);
-            const resRests = parsed.map(r =>{
-                let tempDate = r.date; //r.dateMonth.toString() + "/" + r.dateDay.toString() + "/" + r.dateYear.toString();
-                return{
-                    id: r.id,
-                    name: r.name,
-                    address: r.location,
-                    date: tempDate
-                }
-            })
-            console.log(resRests);
-            setSampleRestaurants(resRests);
-            setSampleRestaurants2(resRests);
-            console.log(sampleRestaurants);
-        })
+        if(token){
+            axios.get('./meal_history')
+            .then(res =>{
+                console.log(res);
+                const parsed = res.data;
+                console.log(parsed);
+                const resRests = parsed.map(r =>{
+                    let tempDate = r.date; //r.dateMonth.toString() + "/" + r.dateDay.toString() + "/" + r.dateYear.toString();
+                    return{
+                        id: r.id,
+                        name: r.name,
+                        address: r.location,
+                        date: tempDate
+                    }
+                })
+                console.log(resRests);
+                setSampleRestaurants(resRests);
+                setSampleRestaurants2(resRests);
+                console.log(sampleRestaurants);
+            });
+        }
     }, []);
 
     function handleDelete(item_id) {
@@ -64,10 +66,10 @@ const Meal_History = (props) =>{
         let results = [];
 
         switch (sampleFilter) {
-            case "all" : 
+            case "All Time" : 
                 setSampleRestaurants(sampleRestaurants2);
                 break;
-            case "year" :
+            case "This Year" :
                 for(let i = 0; i < sampleRestaurants2.length; i++){
                     if(sampleRestaurants2[i].date.slice('/')[2] === dateData[2]){
                         results.push(sampleRestaurants2[i]);
@@ -75,7 +77,7 @@ const Meal_History = (props) =>{
                 }
                 setSampleRestaurants(results);
                 break;
-            case "month":
+            case "This Month":
                 for(let i = 0; i < sampleRestaurants2.length; i++){
                     if(sampleRestaurants2[i].date.slice('/')[2] === dateData[2]){
                         if(sampleRestaurants2[i].date.slice('/')[0] === dateData[0]){
@@ -85,7 +87,7 @@ const Meal_History = (props) =>{
                 }
                 setSampleRestaurants(results);
                 break;
-            case "day":
+            case "Today":
                 for(let i = 0; i < sampleRestaurants2.length; i++){
                     if(d === sampleRestaurants2[i].date){
                         results.push(sampleRestaurants2[i]);
@@ -102,15 +104,15 @@ const Meal_History = (props) =>{
         return(
             <div id="parent">
             <h1 className="meal_h">Meal History</h1>
-            <p className="meal_p">Viewing history from: All Time</p>
+            <p className="meal_p">Viewing history from: {sampleFilter}</p>
             
             <div id="meal_table">
                 <label for="time_frames" id="time_f"> View entries from: </label>
                 <select id="time_frames" name="time_frames" onChange={handleChange}>
-                    <option value="all">All Time</option>
-                    <option value="year">This Year</option>
-                    <option value="month">This Month</option>
-                    <option value="day">Today</option>
+                    <option value="All Time">All Time</option>
+                    <option value="This Year">This Year</option>
+                    <option value="This Month">This Month</option>
+                    <option value="Today">Today</option>
                     </select>
                     <input className="option_button" type="submit" onClick={handleFilter}></input>
             </div>

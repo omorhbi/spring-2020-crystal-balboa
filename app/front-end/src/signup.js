@@ -61,9 +61,9 @@ const Signup = () => {
                 <label>Password:   </label>
                 <input type="password" name="password" onChange={handlePassChange}></input><br></br>
                 <p className="signup_para">(Don't forget this! Supperwhere does not have a password retrieval system in place.)</p>
-                <label>Zip Code: </label>
+                <label>Location: </label>
                 <input type="text" name="location" onChange={handleLocationChange}></input>
-                <p className="signup_para">(You can always change this, so don't worry.)</p>
+                <p className="signup_para">(Town, State/Region.)</p>
                 <br></br>
                 <div id="button">
                     <button id="login-button" type="submit" onClick={handleSubmit}>Submit</button>

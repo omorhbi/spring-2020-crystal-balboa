@@ -3,6 +3,10 @@ body {
 	background-size: auto;
 }
 
+.addMealProfile{
+	color: blue;
+	text-decoration: underline;
+}
 
 .profile{
 	width: 100%;
