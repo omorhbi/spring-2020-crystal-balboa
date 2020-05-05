@@ -122,7 +122,7 @@ app.post('/login', async (req,res) => {
 
 
 // post request to show search results
-app.post('/location/show', (req, res) => {
+app.post('/location/show', authorized(), (req, res) => {
 	const searchName = req.body.resObject.resName;
 	let locName = req.body.resObject.resLoc;
 	if (locName === ''){
