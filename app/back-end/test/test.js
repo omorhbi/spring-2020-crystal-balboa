@@ -5,6 +5,7 @@ const chaiHttp = require("chai-http");
 const {expect} = chai;
 chai.use(chaiHttp);
 
+
 describe("Search results", ()=>{
     it("returns object that contains array of objects, each with all their attributtes", done=>{
         chai
@@ -58,11 +59,48 @@ describe("Search results", ()=>{
             })
     })
 });
+
+describe("Logging in", ()=>{
+    it("will log in when correct credentials are given", done=>{
+        chai   
+            .request(app)
+            .post('/login')
+            .send({username: 'SampleMan', password: 'supersample'})
+            .end((err, res)=>{
+                expect(res.body.token).to.exist;
+                done();
+            })
+    })
+    it("will grant an error when incorrect credentials are given", done=>{
+        chai
+            .request(app)
+            .post('/login')
+            .send({username: "1", password: "1"})
+            .end((err, res)=>{
+                expect(res.body.mistake).to.exist;
+                done();
+            })
+    })
+})
+
+describe("Signing up", ()=>{
+    it("will grant an error when signup credentials don't fit criteria", done=>{
+        chai
+            .request(app)
+            .post('/signup')
+            .send({username: "1", password: "1"})
+            .end((err, res)=>{
+                expect(res.body.mistake).to.exist;
+                done();
+            })
+    })
+})
+/** 
 describe("Search preferences results", ()=>{
     it("returns object that contains array of objects, each with all their attributtes", done=>{
         chai
             .request(app)
-            .post('/searchPreferences/show')
+            .post('/location/prefshow')
             .send({resObject: {resName: 'Chinese', resLoc: "Lower East Side, New York City"}})
             .end((err, res) =>{
                 expect(res.body.restaurants).to.be.a('array');
@@ -73,7 +111,7 @@ describe("Search preferences results", ()=>{
     it("should log error if an error occurs", done =>{
         chai
             .request(app)
-            .post('/searchPreferences/show')
+            .post('/location/prefshow')
             .send({resObject: {resName: null, resLoc: null}})
             .end((err, res)=>{
                 expect(err).to.equal(null);
@@ -83,7 +121,7 @@ describe("Search preferences results", ()=>{
     it("should make the location New York City if no name is specified", done=>{
         chai
             .request(app)
-            .post('/searchPreferences/show')
+            .post('/location/prefshow')
             .send({resObject: {resName: "pizza", resLoc: ''}})
             .end((err, res)=>{
                 res.body.restaurants.forEach(element => {
@@ -143,3 +181,4 @@ describe("Profile results", ()=>{
             })
     })
 });
+*/
