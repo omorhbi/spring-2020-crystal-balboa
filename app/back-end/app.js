@@ -24,8 +24,6 @@ function authorized(){
 	return function(req, res, next){
 		const authHeader = req.headers['authorization'];
 		const token = authHeader && authHeader.split(' ')[1];
-		//const token = req.header('auth-token');
-		//console.log(token);
 		if (!token){
 			console.log("Access denied!");
 			return res.json({mistake: 'unauthorized'});
@@ -34,10 +32,7 @@ function authorized(){
 			if (err){
 				return res.json({mistake: 'not valid token'})
 			}
-			//console.log(user);
 			req.user = user.user;
-			//console.log(req.user.name);
-			console.log('valid token');
 			next(); 
 		});
 	}
@@ -47,7 +42,6 @@ app.post('/signup', async (req, res) => {
 	const username = req.body.username;
 	const upMyO = {username: username, password: req.body.password};
 	const error = registerValidation(upMyO);
-	//console.log(error);
 	if (error.error) {
 		console.log("validation error");
 		console.log(error.error);
@@ -170,7 +164,6 @@ app.post('/location/prefshow', authorized(), async (req, res) => {
 	const currUser = await User.findOne({username: req.user.username});
 	let priceRange = currUser.preferences.price;
 	let preferences = currUser.preferences.type;
-	console.log(priceRange, preferences);
 	if(priceRange.length === 0){
 		priceRange = [1,2,3,4];
 	}
@@ -181,7 +174,6 @@ app.post('/location/prefshow', authorized(), async (req, res) => {
 	if (locName === ''){
 		locName = "New York City";
 	}
-	console.log(req.body);
 	zomatoClient.locations({
 		query: locName,
 		count: 1
@@ -192,10 +184,9 @@ app.post('/location/prefshow', authorized(), async (req, res) => {
 		zomatoClient.search({
 			entity_id: entity_id,
 			entity_type: entity_type,
-			nameQuery: searchName,
+			q: searchName,
 		})
 		.then(function(resData){
-			//console.log(resData.restaurants);
 			let restaurants = resData.restaurants.map(r => {
 				return {
 					name: r.name,
@@ -206,7 +197,6 @@ app.post('/location/prefshow', authorized(), async (req, res) => {
 					cuisine: r.cuisines
 		      	}
 		    });
-		    //console.log(restaurants);
 		    let slicedData;
     		let splitCuisines;
             const maxPriceRange = Math.max(...priceRange);
@@ -239,7 +229,6 @@ app.post('/location/prefshow', authorized(), async (req, res) => {
                 	price: res.price
                 }
             });
-            console.log(restaurants);
 		    res.json({ restaurants });
 		})
 		.catch(function(err){
@@ -257,14 +246,16 @@ app.post('/profile', authorized(), async (req, res) => {
 	const currUser = await User.findOne({username: req.user.username});
 	let priceRange = currUser.preferences.price;
 	let preferences = currUser.preferences.type;
-	console.log(priceRange, preferences);
-	console.log(currUser.location);
-	//const location = 
+	let toSearch;
 	if(priceRange.length === 0){
 		priceRange = [1,2,3,4];
 	}
 	if(preferences.length === 0){
 		preferences = ["American", "Chinese", "French", "Greek", "Indian", "Japanese", "Korean", "Mexican"];
+		toSearch = "";
+	}
+	else{
+		toSearch = preferences[Math.floor(Math.random() * preferences.length)];		
 	}
 
 	zomatoClient.locations({
@@ -277,7 +268,8 @@ app.post('/profile', authorized(), async (req, res) => {
 		zomatoClient.search({
 			entity_id: entity_id,
 			entity_type: entity_type,
-			count: 20
+			count: 20,
+			q: toSearch
 		})
 		.then(function(resData){
 			// these two lists are temporary so they only serve as a model for how
@@ -293,7 +285,6 @@ app.post('/profile', authorized(), async (req, res) => {
 			}
 
 			else if (savedRestaurants.length > 0){
-				console.log(savedRestaurants);
 				filteredRes = resData.restaurants.filter(restaurant =>
 		    	preferences.some(res => restaurant.cuisines.split(', ').includes(res)) 
 		    	&& priceRange.includes(restaurant.price_range));

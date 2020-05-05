@@ -46,9 +46,8 @@ const Profile = (props) => {
                     return '$'.repeat(price) + suffix;
                     
                 });
-                console.log(priceList);
                 setPriceRange(priceList);
-                
+                let idx = 0;
                 const parsed = res.data.restaurants;
                 const resRests = parsed.map(r => {
                     let addLine = r.location.substr(0,r.location.indexOf(','));
@@ -62,11 +61,13 @@ const Profile = (props) => {
                         price += "$";
                     }
                     return {
-                        restaurant_name: r.name + " (" + price + ")",
+                        restaurant_name: r.name,
                         address: addLine,
                         city: stateLine,
                         cuisine: r.cuisine,
-                        thumb: r.thumbnail
+                        thumb: r.thumbnail,
+                        idx: idx++,
+                        price: price
                     }                    
                 });
                 setRestaurants(resRests);
@@ -77,6 +78,18 @@ const Profile = (props) => {
         });
 
     }, []); 
+
+    const handleMeal = (event) => {
+        const ind = parseInt(event.target.name, 10);
+        const restObj = restaurants[ind];
+        axios.post('./meal_history', restObj)
+            .then(res => {
+                history.push('/meal_history');
+            })
+            .catch(err =>{
+                console.log("POST error");
+            })
+    }
 
     return (
     	<div className = "profile">
@@ -90,11 +103,11 @@ const Profile = (props) => {
     				<div className = "profileRestCard" key = {item.id}>
     					<a href = {`https://www.google.com/maps/dir/?api=1&destination=${item.address}, ${item.city}`} target="_blank" className="topRightDir">Directions</a>
     					<img src={`${item.thumb}`} className="profileRestCardImg"/>
-    					<div className = "restNameList">{item.restaurant_name}</div>
+    					<div className = "restNameList">{item.restaurant_name} ({item.price})</div>
     					<div className = "cuisineName">{item.cuisine} Cuisine</div>
     					{item.address}<br />
     					{item.city}<br />
-    					<Link to = "/meal_history"><a>Add to Meal History</a></Link>
+    					<a name={`${item.idx}`} onClick={handleMeal} className="addMealProfile">Add to Meal History</a>
     				</div>
     			))}
     		</div>
