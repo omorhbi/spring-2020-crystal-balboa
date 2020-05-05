@@ -1,5 +1,7 @@
 language: node_js
 node_js:
 - "node"
-before_script: cd app/back-end
+before_script: 
+- cd app/back-end
+- npm install 
 script: npm test
