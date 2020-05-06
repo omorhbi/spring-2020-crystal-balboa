@@ -340,7 +340,7 @@ app.get('/meal_history', authorized(), (req, res)=>{
 
 app.post('/meal_history', authorized(), (req,res)=>{
 	const rest = req.body;
-	const d = new Date();
+	const d = rest.d;
 	const rest2 = new Restaurant({
 		id: Date.now(),
 		name: req.body.restaurant_name,
@@ -348,10 +348,10 @@ app.post('/meal_history', authorized(), (req,res)=>{
 		price: "",
 		rating: "",
 		cuisine: req.body.cuisine,
-		date: d.toLocaleDateString(),
-		dateMonth: parseInt(d.toLocaleDateString().substring(0,1)),
-		dateDay: parseInt(d.toLocaleDateString().substr(2,3)),
-    	dateYear: parseInt(d.toLocaleDateString().substr(5,6)),
+		date: req.body.date,
+		dateMonth: req.body.dateMonth,
+		dateDay: req.body.dateDay,
+    	dateYear: req.body.dateYear,
     	thumbnail: req.body.thumb
 	});
 	//console.log(rest2);
