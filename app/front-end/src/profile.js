@@ -82,6 +82,11 @@ const Profile = (props) => {
     const handleMeal = (event) => {
         const ind = parseInt(event.target.name, 10);
         const restObj = restaurants[ind];
+        const d = new Date();
+        restObj.date = d.toLocaleDateString();
+        restObj.dateMonth = parseInt(d.toLocaleDateString().substring(0,1));
+        restObj.dateDay = parseInt(d.toLocaleDateString().substr(2,3));
+        restObj.dateYear = parseInt(d.toLocaleDateString().substr(5,6));
         axios.post('./meal_history', restObj)
             .then(res => {
                 history.push('/meal_history');
