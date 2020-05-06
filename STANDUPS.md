@@ -1,4 +1,19 @@
 # Standup
+### 5/6/2020
+- Deployed application to Digital Ocean droplet
+- no Blockers
+
+### 5/4/2020
+- Integrated TravisCI workflow into the application
+- No Blockers
+
+### 5/1/2020
+- Adjusted filtering implementation for meal history to include additional filtering queries
+- No blockers
+
+### 4/29/2020
+- Began Sprint 4 Planning, few remaining tasks and bug fixes distributed to members.
+- No blockers
 
 ### 4/27/2020
 - Successfully finished back end database functions. Data storage now uses information of the currently logged in user to access appropriate documents in MongoDB
