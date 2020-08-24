@@ -1,1 +1,1 @@
-web: sh -c 'cd app/back-end && npx nodemon && cd ../front-end && npm start'
+web: sh -c 'npx nodemon && cd front-end && npm install && npm start'

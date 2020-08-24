@@ -38,6 +38,9 @@ const User = new mongoose.Schema({
     preferences: Object
 });
 
+console.log(process.env.DB_CONN);
+
 mongoose.model('User', User);
 mongoose.model('Restaurant', Restaurant);
 mongoose.connect(process.env.DB_CONN, {useNewUrlParser: true, useUnifiedTopology: true});
+
