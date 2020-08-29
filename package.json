@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --timeout 10000 --exit",
-    "coverage": "nyc npm run test",
-    "heroku-postbuild": "cd front-end && npm install && npm start"
+    "coverage": "nyc npm run test"
   },
   "author": "",
   "license": "ISC",

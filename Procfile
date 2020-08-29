@@ -1,1 +1,1 @@
-web: sh -c 'npx nodemon'
+web: sh -c 'npm start'
