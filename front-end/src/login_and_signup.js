@@ -29,7 +29,7 @@ const Login_and_Signup = () => {
                 }
                 else{
                     const token = res.data.token;
-                    console.log(token);
+                    //console.log(token);
                     localStorage.setItem('jwtToken', token);
                     setAuthorizationToken(token);
                     history.push('/profile');

@@ -7,7 +7,7 @@ const Profile = (props) => {
     
     const history = useHistory();
     const token = localStorage.getItem('jwtToken');
-    console.log(token, " token is here");
+    //console.log(token, " token is here");
 
     if (!token){
         history.push('/login');
@@ -17,7 +17,7 @@ const Profile = (props) => {
 	const [preferences, setPreferences] = useState([]);
 	const [count, setCount] = useState(0);
 	const [priceRange, setPriceRange] = useState("");
-    console.log(priceRange[0] + "cheap");
+    //console.log(priceRange[0] + "cheap");
 
     const [resName, setResName] = useState(["Joe's Shanghai", "Xi'an Famous Foods"]);
     const [resLoc, setResLoc] = useState("New York City");

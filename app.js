@@ -33,6 +33,8 @@ function authorized(){
 				return res.json({mistake: 'not valid token'})
 			}
 			req.user = user.user;
+			console.log(user);
+
 			next(); 
 		});
 	}
@@ -111,6 +113,7 @@ app.post('/login', async (req,res) => {
 		expiresIn: "1d"
 	});
 	console.log("Logged in!", req.headers);
+	// res.cooke('token', token, { httpOnly: true});
 	return res.json({ token: token });	
 });
 
@@ -327,7 +330,8 @@ app.post('/profile', authorized(), async (req, res) => {
     });
 });
 
-app.get('/meal_history', authorized(), (req, res)=>{
+app.get('/meal_history_display', authorized(), (req, res)=>{
+	console.log('1st one');
 	User.findOne({username: req.user.username}, function(err, user){
 		if (err){
 			throw err;
@@ -399,8 +403,10 @@ app.post('/preferences', authorized(), (req,res) => {
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/*', (req, res) => {
+	console.log("2nd");
  	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
 
 
 

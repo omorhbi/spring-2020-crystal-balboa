@@ -2,9 +2,10 @@ import React, { Component, useEffect, useState, useReducer } from 'react';
 import './meal_history.css';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-
+import setAuthorizationToken from './authorization';
 
 const Meal_History = (props) =>{
+
     const history = useHistory();
     const token = localStorage.getItem('jwtToken');
     console.log(token, " token is here");
@@ -12,14 +13,17 @@ const Meal_History = (props) =>{
     if (!token){
         history.push('/login');
     }
-  
+
     const [sampleFilter, setFilter] = useState('All Time');
     const [sampleRestaurants, setSampleRestaurants] = useState([]);
     const [sampleRestaurants2, setSampleRestaurants2] = useState([]);
 
     useEffect (() =>{
+        setAuthorizationToken(token);
+        console.log('yay token reset');
+
         if(token){
-            axios.get('./meal_history')
+            axios.get('./meal_history_display')
             .then(res =>{
                 console.log(res);
                 const parsed = res.data;
