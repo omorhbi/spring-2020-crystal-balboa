@@ -11,6 +11,27 @@ const Login_and_Signup = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const handleGuestLogin = (event) => {
+        const resObject = {username: 'leon1234', password: 'leon1234'};
+        axios.post('./login', resObject)
+            .then(res => {
+                if(res.data.mistake){
+                    //console.log(res.data.mistake);
+                    history.push('/mistake');
+                }
+                else{
+                    const token = res.data.token;
+                    //console.log(token);
+                    localStorage.setItem('jwtToken', token);
+                    setAuthorizationToken(token);
+                    history.push('/profile');
+                }
+            })
+            .catch(err => {
+                console.log(err);
+        });
+    }
+
     const handleUserChange = (event) => {
         setUsername(event.target.value);
     }
@@ -52,6 +73,7 @@ const Login_and_Signup = () => {
                 <input type="password" name = "password" onChange={handlePassChange}></input><br></br><br></br>
                 <div id="buttons">
                 <button id="login-button" type="submit" onClick={handleSubmit}>Submit</button><br></br><br></br>
+                <button id="login-button" type="submit" onClick={handleGuestLogin}>Guest Login</button><br></br><br></br>
                 </div>
             </div>
         </div>
