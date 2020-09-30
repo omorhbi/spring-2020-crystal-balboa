@@ -45,4 +45,4 @@ The idea for Supperwhere comes from a commonly recurring dillema: What do I eat 
 3. cd back to the back-end folder (app/back-end) from the app directory.
 5. Run "npm install" on the back-end folder to be safe in terms of having all the dependencies for express and Zomato.
 6. Once that's set up, do npx nodemon to start the server, and you're all set.
->>>>>>> c2ef40223d6c77cdf3b0e0d99c63446692446b89
+
