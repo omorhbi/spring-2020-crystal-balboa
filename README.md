@@ -24,19 +24,19 @@ The idea for Supperwhere comes from a commonly recurring dillema: What do I eat 
 
 ## Example Images of the Deployed Site
 
-![Home Page](Home_Screen.PNG)
+![Home Page](/images/Home_Screen.PNG)
 
-![Login Page](Login_Screen.PNG)
+![Login Page](/images/Login_Screen.PNG)
 
-![Profile Page](Profile_Page.PNG)
+![Profile Page](/images/Profile_Page.PNG)
 
-![Preferences Page](Preferences_Page.PNG)
+![Preferences Page](/images/Preferences_Page.PNG)
 
-![Meal History](Meal_History.PNG)
+![Meal History](/images/Meal_History.PNG)
 
-![Search Page no Preferences](Search_Page_No_Prefs.PNG)
+![Search Page no Preferences](/images/Search_Page_No_Prefs.PNG)
 
-![Search Page with Preferences](Search_Page_With_Prefs.PNG)
+![Search Page with Preferences](/images/Search_Page_With_Prefs.PNG)
 =======
 ## Running the Project for Sprint 3
 
